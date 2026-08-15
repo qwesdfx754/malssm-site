@@ -1,0 +1,722 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>[사랑의교회] 광야에서의 승리 - 윤대혁 후임목사 · 말씀 한눈에</title>
+<style>
+:root{
+  --bg:#faf8f5; --surface:#fff; --line:#e7e1d8; --ink:#231f1a; --muted:#7a7268;
+  --accent:#8a5a2b; --accent-soft:#f2e8dc; --ring:rgba(138,90,43,.18);
+  --good:#2f7d5d; --warn:#a8442a;
+  --radius:14px; --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#171512;--surface:#201d19;--line:#332e28;--ink:#efe9e0;--muted:#a79d90;
+        --accent:#d8a25f;--accent-soft:#2d2620;--ring:rgba(216,162,95,.22);}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR',system-ui,sans-serif;
+  line-height:1.75;-webkit-font-smoothing:antialiased;font-size:16px}
+a{color:inherit}
+.wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+header.top{border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:50}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-weight:700;letter-spacing:-.02em;text-decoration:none;font-size:17px}
+.brand small{display:block;font-weight:400;font-size:11px;color:var(--muted);letter-spacing:0}
+.badge{font-size:11px;color:var(--muted);border:1px solid var(--line);
+  padding:3px 9px;border-radius:99px}
+
+.nav{display:flex;align-items:center;gap:16px}
+.nav a{font-size:14px;text-decoration:none;font-weight:600;color:var(--muted)}
+.nav a:hover{color:var(--accent)}
+
+/* 메인 화면 */
+.cover{padding:60px 0 34px;max-width:720px}
+.cover h1{font-size:36px;margin:0 0 14px;letter-spacing:-.035em;line-height:1.3}
+.cover p{margin:0 0 16px;color:var(--muted);font-size:16.5px}
+.cover .stat{font-size:13px;color:var(--accent);background:var(--accent-soft);
+  display:inline-block;padding:6px 14px;border-radius:99px}
+.menu{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  padding-bottom:44px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px;text-decoration:none;display:block;transition:all .15s}
+.tile:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--ring);border-color:var(--accent)}
+.tile .ico{font-size:26px;margin-bottom:10px}
+.tile h3{margin:0 0 6px;font-size:18px;letter-spacing:-.02em}
+.tile p{margin:0 0 14px;font-size:14px;color:var(--muted);line-height:1.6}
+.tile .go{font-size:13px;font-weight:700;color:var(--accent)}
+.tile.off{opacity:.5;cursor:default}
+.tile.off:hover{transform:none;box-shadow:none;border-color:var(--line)}
+.tile.off .go{color:var(--muted)}
+h2.sec2{font-size:15px;letter-spacing:-.01em;margin:0 0 14px}
+
+/* 목록 화면 머리 */
+.listhead{display:flex;align-items:flex-end;justify-content:space-between;
+  gap:48px;padding:44px 0 22px;flex-wrap:wrap}
+.lh-left h1{font-size:28px;margin:0 0 6px;letter-spacing:-.03em}
+.lh-left p{margin:0;color:var(--muted);font-size:14px}
+.lh-right{flex:none;min-width:300px}
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);
+  border:1px solid var(--line);border-radius:99px;padding:9px 15px;transition:border-color .15s}
+.search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.search .mag{opacity:.5;font-size:14px}
+.search input{flex:1;border:0;background:none;outline:none;font:inherit;
+  font-size:14.5px;color:var(--ink);min-width:0}
+.search input::-webkit-search-cancel-button{display:none}
+.search .clr{border:0;background:none;color:var(--muted);cursor:pointer;
+  font-size:13px;padding:0 2px}
+.search .clr:hover{color:var(--accent)}
+.hit{font-size:12.5px;color:var(--accent);margin:7px 0 0;text-align:right;min-height:18px}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;padding:0 0 22px}
+.fchip{font:inherit;font-size:13px;cursor:pointer;background:var(--surface);
+  border:1px solid var(--line);color:var(--muted);border-radius:99px;
+  padding:6px 14px;transition:all .15s}
+.fchip:hover{border-color:var(--accent);color:var(--accent)}
+.fchip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.fchip b{margin-left:6px;font-variant-numeric:tabular-nums;opacity:.6;font-weight:600}
+.fchip.on b{opacity:.85}
+.card .cat{background:var(--accent-soft);color:var(--accent);border-radius:5px;
+  padding:1px 7px;margin-right:7px;font-weight:600;font-size:11px}
+
+@media(max-width:760px){
+  .listhead{gap:20px}
+  .lh-right{min-width:100%}
+  .cover h1{font-size:28px}
+}
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));padding-bottom:64px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;text-decoration:none;display:flex;flex-direction:column;
+  transition:transform .15s ease,box-shadow .15s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--ring)}
+.card .thumb{aspect-ratio:16/9;width:100%;object-fit:cover;background:#000;display:block}
+.filewarn{display:none;background:#a8442a;color:#fff;padding:12px 16px;border-radius:12px;
+  margin:16px 0;font-size:14px;line-height:1.6}
+.filewarn code{background:rgba(255,255,255,.2);padding:2px 7px;border-radius:5px;
+  font-family:var(--mono);font-size:13px}
+.card .body{padding:16px}
+.card .date{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.card h3{margin:6px 0 8px;font-size:16px;letter-spacing:-.02em;line-height:1.45}
+.card .one{font-size:14px;color:var(--muted);margin:0 0 12px}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.chip{font-size:12.5px;background:var(--accent-soft);color:var(--accent);
+  border-radius:99px;padding:4px 11px;white-space:nowrap;border:1px solid transparent}
+.chip b{font-variant-numeric:tabular-nums;opacity:.65;font-weight:600;margin-left:3px}
+
+/* 누를 수 있는 키워드 = 쉬운말 스위치 */
+button.chip{font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  padding:4px 12px 4px 6px;transition:all .15s}
+button.chip .sw{width:26px;height:15px;border-radius:99px;background:var(--line);
+  position:relative;flex:none;transition:background .18s}
+button.chip .sw::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;
+  border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform .18s}
+button.chip:hover{border-color:var(--accent)}
+button.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+button.chip.on b{opacity:.8;color:#fff}
+button.chip.on .sw{background:rgba(255,255,255,.45)}
+button.chip.on .sw::after{transform:translateX(11px)}
+
+/* 켜져 있을 때 상단 상태 표시 */
+.swapbar{display:none;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0 0;
+  background:var(--accent-soft);border:1px solid var(--accent);border-radius:12px;
+  padding:10px 14px;font-size:13.5px;color:var(--accent)}
+.swapbar.show{display:flex}
+.swapbar b{font-weight:700}
+.swapbar button{margin-left:auto;font:inherit;font-size:12.5px;cursor:pointer;
+  background:var(--accent);color:#fff;border:0;border-radius:99px;padding:4px 12px}
+
+/* detail */
+.sermon-head{padding:32px 0 20px;border-bottom:1px solid var(--line)}
+.sermon-head .date{font-size:13px;color:var(--muted)}
+.sermon-head h1{font-size:27px;margin:6px 0 14px;letter-spacing:-.03em;line-height:1.4}
+.oneline{font-size:19px;line-height:1.6;background:var(--accent-soft);color:var(--accent);
+  border-radius:var(--radius);padding:18px 20px;margin:0 0 14px;font-weight:600;letter-spacing:-.02em}
+.scripture{font-size:14px;color:var(--muted)}
+.scripture b{color:var(--ink);font-weight:600}
+
+.layout{display:grid;gap:36px;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);
+  align-items:start;padding:28px 0 80px}
+@media(max-width:1000px){.layout{grid-template-columns:1fr;gap:24px}}
+.sticky{position:sticky;top:80px}
+@media(max-width:1000px){.sticky{position:static}}
+.player{aspect-ratio:16/9;width:100%;border:0;border-radius:var(--radius);
+  background:#000;display:block;transition:box-shadow .3s}
+.player.flash{box-shadow:0 0 0 4px var(--accent)}
+
+section{margin:0 0 30px}
+h2.sec{font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--muted);
+  text-transform:uppercase;margin:0 0 12px;display:flex;align-items:center;gap:8px;
+  cursor:pointer;user-select:none}
+h2.sec:hover{color:var(--accent)}
+h2.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+/* 삼각형: 아래(▾)=펼침, 위(▴)=접힘 */
+.caret{display:inline-block;transition:transform .2s;font-size:11px;line-height:1}
+section.closed .caret{transform:rotate(180deg)}
+section.closed .sec-body{display:none}
+section.closed h2.sec{margin-bottom:0}
+.cnt{font-weight:600;opacity:.65;font-variant-numeric:tabular-nums}
+section.closed .cnt::after{content:" · 접힘"}
+
+/* 접기 / 쉬운말 도구 */
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+.tool{font-size:12.5px;border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  border-radius:99px;padding:5px 13px;cursor:pointer;font-family:inherit;transition:all .15s}
+.tool:hover{border-color:var(--accent);color:var(--accent)}
+.tool.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.tool.sw2{display:inline-flex;align-items:center;gap:7px;padding-left:7px}
+.tool.sw2 .sw{width:26px;height:15px;border-radius:99px;background:var(--line);
+  position:relative;flex:none;transition:background .18s}
+.tool.sw2 .sw::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;
+  border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform .18s}
+.tool.sw2.on .sw{background:rgba(255,255,255,.5)}
+.tool.sw2.on .sw::after{transform:translateX(11px)}
+mark.swap{background:var(--accent-soft);color:var(--accent);border-radius:5px;
+  padding:1px 5px;font-weight:600;box-decoration-break:clone}
+
+.clip{display:flex;gap:12px;width:100%;text-align:left;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:9px;
+  cursor:pointer;font:inherit;color:inherit;transition:border-color .15s,background .15s}
+.clip:hover{border-color:var(--accent);background:var(--accent-soft)}
+.clip.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.clip .t{font-family:var(--mono);font-size:12px;color:var(--accent);
+  font-weight:600;padding-top:2px;min-width:52px}
+.clip .n{font-weight:600;font-size:15px;letter-spacing:-.01em;display:block;margin-bottom:2px}
+.clip .w{font-size:13px;color:var(--muted);display:block}
+
+.point{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 20px;margin-bottom:12px}
+.point h3{margin:0 0 4px;font-size:17px;letter-spacing:-.02em;cursor:pointer;user-select:none}
+.point h3:hover{color:var(--accent)}
+.point.closed ul{display:none}
+.point.closed .range{margin-bottom:0}
+.point h3 .caret{font-size:11px;color:var(--muted);margin-right:7px}
+.point.closed h3 .caret{transform:rotate(180deg)}
+.point.closed .range::after{content:" · 눌러서 펼치기";opacity:.8}
+.point .range{font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:12px}
+.point ul{margin:0;padding:0;list-style:none}
+.point li{padding:8px 0;border-top:1px dashed var(--line)}
+.point li:first-child{border-top:0}
+.ev{background:none;border:0;padding:0;margin-left:6px;cursor:pointer;font:inherit;
+  font-family:var(--mono);font-size:11px;color:var(--accent);opacity:.75;
+  border-bottom:1px dotted currentColor}
+.ev:hover{opacity:1}
+.quote{display:none;margin:8px 0 2px;padding:9px 13px;border-left:3px solid var(--accent);
+  background:var(--accent-soft);border-radius:0 8px 8px 0;font-size:13.5px;color:var(--muted)}
+.quote.open{display:block}
+.quote b{color:var(--accent);font-family:var(--mono);font-size:11px;display:block;margin-bottom:3px}
+
+.gloss-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.gloss{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px;margin:0;cursor:pointer;transition:border-color .15s,background .15s}
+.gloss:hover{border-color:var(--accent);background:var(--accent-soft)}
+.gloss dt{font-weight:700;font-size:15px;margin-bottom:4px;display:flex;
+  align-items:baseline;gap:8px;letter-spacing:-.01em}
+.gloss dd{margin:0;font-size:14px;color:var(--muted);line-height:1.7}
+.gloss .at{font-family:var(--mono);font-size:11px;color:var(--accent);
+  background:none;border:0;padding:0;border-bottom:1px dotted currentColor;pointer-events:none}
+
+.act{display:flex;gap:11px;align-items:flex-start;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:9px}
+.act input{margin:5px 0 0;width:17px;height:17px;accent-color:var(--good);flex:none;cursor:pointer}
+.act label{cursor:pointer;font-size:15px;letter-spacing:-.01em}
+.act.done label{text-decoration:line-through;color:var(--muted)}
+
+.hard{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--warn);
+  border-radius:0 12px 12px 0;padding:13px 16px;margin-bottom:9px;
+  cursor:pointer;transition:border-color .15s,background .15s}
+.hard:hover{background:var(--accent-soft);border-left-color:var(--accent)}
+.hard .q{font-weight:600;font-size:14.5px;margin-bottom:5px}
+.hard .a{font-size:14px;color:var(--muted)}
+.hard .at{font-family:var(--mono);font-size:11px;color:var(--accent);
+  border-bottom:1px dotted currentColor}
+
+.verify{font-size:12px;color:var(--muted);border:1px dashed var(--line);
+  border-radius:10px;padding:11px 14px;margin-top:22px;line-height:1.65}
+.verify b{color:var(--ink)}
+footer{border-top:1px solid var(--line);padding:26px 0 60px;font-size:12.5px;color:var(--muted)}
+.empty{padding:70px 20px;text-align:center;color:var(--muted)}
+.draft{background:var(--warn);color:#fff;font-size:11px;padding:2px 8px;border-radius:99px}
+
+/* 개인 기능 공통 */
+.pbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+.pbtn{font:inherit;font-size:13px;cursor:pointer;background:var(--surface);
+  border:1px solid var(--line);color:var(--muted);border-radius:99px;
+  padding:6px 14px;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.pbtn:hover{border-color:var(--accent);color:var(--accent)}
+.pbtn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.pbtn.danger:hover{border-color:var(--warn);color:var(--warn)}
+
+.memo{margin:0 0 30px}
+.memo textarea{width:100%;min-height:96px;resize:vertical;font:inherit;font-size:14.5px;
+  line-height:1.7;color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;padding:13px 15px;outline:none}
+.memo textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.memo .st{font-size:12px;color:var(--muted);margin-top:6px;min-height:16px}
+
+.addact{display:flex;gap:8px;margin-top:9px}
+.addact input{flex:1;font:inherit;font-size:14px;border:1px solid var(--line);
+  background:var(--surface);border-radius:12px;padding:11px 14px;outline:none;color:var(--ink)}
+.addact input:focus{border-color:var(--accent)}
+.addact button{font:inherit;font-size:13.5px;cursor:pointer;background:var(--accent);
+  color:#fff;border:0;border-radius:12px;padding:0 18px;white-space:nowrap}
+.act .mine{font-size:10.5px;background:var(--good);color:#fff;border-radius:4px;
+  padding:1px 6px;margin-left:7px;vertical-align:2px}
+.act .del{margin-left:auto;background:none;border:0;color:var(--muted);cursor:pointer;
+  font-size:14px;padding:0 4px;align-self:flex-start}
+.act .del:hover{color:var(--warn)}
+
+/* 목표 막대 */
+.goal{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px;margin-bottom:10px}
+.goal .top{display:flex;align-items:center;gap:10px;font-size:14px;margin-bottom:9px}
+.goal .top b{font-size:17px;color:var(--accent)}
+.goal .top input{width:52px;font:inherit;font-size:14px;text-align:center;
+  border:1px solid var(--line);border-radius:8px;padding:3px 4px;background:var(--bg);color:var(--ink)}
+.bar{height:9px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--good);border-radius:99px;
+  transition:width .35s ease}
+.goal.done .bar i{background:var(--accent)}
+.goal .msg{font-size:12.5px;color:var(--muted);margin-top:7px}
+
+/* 카드 위 X 버튼 */
+.cardwrap{position:relative}
+.cardx{position:absolute;top:9px;right:9px;z-index:5;width:26px;height:26px;
+  border-radius:50%;border:0;cursor:pointer;background:rgba(0,0,0,.55);color:#fff;
+  font-size:13px;line-height:1;opacity:0;transition:opacity .15s}
+.cardwrap:hover .cardx{opacity:1}
+.cardx:hover{background:var(--warn)}
+
+/* 담기 팝업 */
+.pop{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;
+  align-items:center;justify-content:center;z-index:200;padding:20px}
+.pop.show{display:flex}
+.popbox{background:var(--surface);border-radius:var(--radius);padding:24px;
+  width:100%;max-width:400px;max-height:80vh;overflow:auto}
+.popbox h3{margin:0 0 4px;font-size:19px;letter-spacing:-.02em}
+.popbox p{margin:0 0 16px;font-size:13.5px;color:var(--muted)}
+.folder{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid var(--line);
+  border-radius:11px;margin-bottom:7px;cursor:pointer;font-size:14.5px}
+.folder:hover{border-color:var(--accent)}
+.folder.in{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.folder .n{margin-left:auto;font-size:12px;color:var(--muted)}
+.newf{display:flex;gap:8px;margin-top:12px}
+.newf input{flex:1;font:inherit;font-size:14px;border:1px solid var(--line);
+  border-radius:11px;padding:10px 13px;background:var(--bg);color:var(--ink);outline:none}
+.newf button{font:inherit;font-size:13.5px;cursor:pointer;background:var(--accent);
+  color:#fff;border:0;border-radius:11px;padding:0 16px}
+.popclose{margin-top:16px;width:100%;font:inherit;font-size:14px;cursor:pointer;
+  background:none;border:1px solid var(--line);color:var(--muted);border-radius:11px;padding:10px}
+
+/* 알림 */
+.toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:99px;
+  font-size:14px;opacity:0;pointer-events:none;transition:all .25s;z-index:300}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style></head><body data-vid="9S3lRg-Rd_4">
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html">말씀 한눈에<small>사랑의교회</small></a>
+  <nav class="nav">
+    <a href="../sermons.html">← 말씀 검색</a>
+    <a href="../map.html">인물 지도</a>
+    <a class="badge" href="https://www.youtube.com/watch?v=9S3lRg-Rd_4" target="_blank" rel="noopener">유튜브에서 보기</a>
+  </nav>
+</div></header>
+<div class="wrap">
+  <div class="sermon-head">
+    <div class="date"><span class="cat">주일예배</span>2026. 08. 09 (일)
+      · 윤대혁 후임목사
+      </div>
+    <h1>[사랑의교회] 광야에서의 승리 - 윤대혁 후임목사</h1>
+    <p class="oneline">광야가 끝나는 것이 승리가 아니라, 왜 광야에 있는지를 알고 순종하며 변화되는 것이 승리입니다.</p>
+    <div class="scripture">본문 <b>출애굽기 16:2-4 · 신명기 8:2 · 마태복음 11:28-29</b></div>
+    <div class="chips" style="margin-top:12px"><span class="chip" title="설교 전체를 관통하는 단어. 사막이 아니라 &#x27;아무것도 통하지 않는 힘든 시기&#x27;를 뜻합니다">광야<b>112</b></span><span class="chip" title="광야를 주신 주체이자 목적을 가진 분으로 반복됩니다">하나님<b>92</b></span><span class="chip" title="두 번째 대지의 핵심어">순종<b>41</b></span><span class="chip" title="순종의 대상">말씀<b>35</b></span><span class="chip" title="광야와 대비되는 &#x27;편하지만 하나님을 찾지 않게 되는 곳&#x27;">애굽<b>27</b></span><span class="chip" title="제목이자 결론. 문제 해결이 아니라 깨달음과 변화로 정의됩니다">승리<b>16</b></span><span class="chip" title="광야를 지나온 뒤에야 붙는 이름">은혜<b>11</b></span></div>
+    <div class="scripture" style="margin-top:10px;font-size:13px">키워드 옆 숫자는 설교에서 나온 횟수입니다.</div>
+    <div class="swapbar" id="easybar">
+      <span><b>쉬운 말로 보는 중</b> — 어려운 표현을 문장째로 풀어 쓴 버전입니다.
+      원문 근거는 그대로입니다.</span>
+    </div>
+    <div class="tools">
+      <button class="tool" onclick="foldAll(this)">요약 모두 펼치기</button>
+      <button class="tool sw2" onclick="easyMode(this)"><span class="sw"></span>쉬운 말로 보기</button>
+    </div>
+    <div class="pbar">
+      <button class="pbtn" id="savebtn" data-vid="9S3lRg-Rd_4"
+        onclick="openSave('9S3lRg-Rd_4', this.dataset.t)" data-t="[사랑의교회] 광야에서의 승리 - 윤대혁 후임목사">☆ 담기</button>
+      <button class="pbtn" onclick="report('fact','9S3lRg-Rd_4')">🔍 고증 오류 알리기</button>
+      <button class="pbtn" onclick="report('bug','9S3lRg-Rd_4')">🐞 버그 알리기</button>
+    </div>
+  </div>
+  <div class="filewarn" id="filewarn">
+<b>영상이 재생되지 않습니다.</b> 이 페이지를 파일로 직접 여셨기 때문입니다
+(유튜브가 <code>file://</code> 임베드를 막습니다 — 오류 153).
+터미널에서 <code>./보기.sh</code> 를 실행하신 뒤
+<code>http://localhost:8765</code> 로 여시면 정상 재생됩니다.
+</div>
+<script>if(location.protocol==='file:')document.getElementById('filewarn').style.display='block';</script>
+
+  <div class="layout" id="swapzone">
+    <div>
+      <div class="sticky">
+        <iframe id="player" class="player" allowfullscreen
+          allow="accelerometer;autoplay;encrypted-media;picture-in-picture"
+          src="https://www.youtube.com/embed/9S3lRg-Rd_4?enablejsapi=1&start=0&rel=0"></iframe>
+        <section class=""><h2 class="sec" onclick="toggleSec(this)"><span class="caret">▾</span>핵심 클립<span class="cnt">5</span></h2><div class="sec-body"><button class="clip" onclick="seek(492,573,this)"><span class="t">8:12</span><span><span class="n">질문을 바꾸십시오 — &#x27;언제&#x27;에서 &#x27;왜&#x27;로</span><span class="w">이 설교의 방향을 결정하는 첫 번째 전환점입니다</span></span></button><button class="clip" onclick="seek(576,650,this)"><span class="t">9:36</span><span><span class="n">신명기 8:2 — 기억하라고 하신 것</span><span class="w">&#x27;왜&#x27;를 물어야 하는 성경적 근거가 낭독됩니다</span></span></button><button class="clip" onclick="seek(1315,1400,this)"><span class="t">21:55</span><span><span class="n">광야는 순종해야만 살 수 있는 곳</span><span class="w">찬양 가사를 인용하며 순종이 선택이 아닌 생존임을 설명합니다</span></span></button><button class="clip" onclick="seek(1993,2080,this)"><span class="t">33:13</span><span><span class="n">설교자의 광야 — 아버지가 쓰러지시던 해</span><span class="w">이 설교에서 가장 개인적이고 정직한 대목입니다</span></span></button><button class="clip" onclick="seek(2248,2330,this)"><span class="t">37:28</span><span><span class="n">결론 — 무엇이 광야에서의 승리인가</span><span class="w">세 가지 대지를 한 문단으로 묶는 마무리입니다</span></span></button></div></section>
+      </div>
+    </div>
+    <div>
+      <section class=""><h2 class="sec" onclick="toggleSec(this)"><span class="caret">▾</span>이번 주 실천 (So what?)<span class="cnt">3</span></h2><div class="sec-body"><div class="act"><input type="checkbox" id="a0" onchange="toggleAct(this)"><div><label for="a0"><span class="tx" data-easy="지금 힘든 일 앞에서 &#x27;언제 끝나지&#x27; 대신 &#x27;왜 나를 여기 두셨을까&#x27;를 한 번 물어보세요.">지금 겪는 어려움 앞에서 &#x27;언제 끝나나&#x27; 대신 &#x27;왜 여기에 두셨나&#x27;를 한 번 물어보십시오.</span></label><button class="ev" onclick="toggleQuote('q29')">근거 38:58</button><div class="quote" id="q29"><b>원문 · 38:58</b>"우리의 강야가 언제 끝나는지를" <button class="ev" onclick="seek(2338)">▶ 이 부분 듣기</button></div></div></div><div class="act"><input type="checkbox" id="a1" onchange="toggleAct(this)"><div><label for="a1"><span class="tx" data-easy="예배 중에 처음 든 생각을 적어 두세요. 나중에 미루고 싶어질 때 그 처음 생각으로 돌아가면 됩니다.">예배 중에 마음에 온 &#x27;첫 번째 생각&#x27;을 적어두고, 미루고 싶어지는 두 번째 생각이 올 때 그 첫 생각으로 돌아가십시오.</span></label><button class="ev" onclick="toggleQuote('q30')">근거 26:31</button><div class="quote" id="q30"><b>원문 · 26:31</b>"첫 번째 그 생각을 나는 끝까지" <button class="ev" onclick="seek(1591)">▶ 이 부분 듣기</button></div></div></div><div class="act"><input type="checkbox" id="a2" onchange="toggleAct(this)"><div><label for="a2"><span class="tx" data-easy="껄끄러웠던 사람에게 이번 주에 먼저 이름을 부르며 인사해 보세요.">마음이 불편했던 사람에게 이번 주에 먼저 이름을 부르며 인사해 보십시오.</span></label><button class="ev" onclick="toggleQuote('q31')">근거 27:46</button><div class="quote" id="q31"><b>원문 · 27:46</b>"내가 먼저 이름을" <button class="ev" onclick="seek(1666)">▶ 이 부분 듣기</button></div></div></div><div id="myacts"></div><div class="addact"><input id="newact" placeholder="내가 정한 실천을 적어 보십시오" onkeydown="if(event.key===&quot;Enter&quot;)addAct(&quot;9S3lRg-Rd_4&quot;)"><button onclick="addAct(&quot;9S3lRg-Rd_4&quot;)">추가</button></div></div></section>
+      <section class=""><h2 class="sec" onclick="toggleSec(this)"><span class="caret">▾</span>내 메모 — 공유되지 않습니다</h2><div class="sec-body"><div class="memo"><textarea id="memo" placeholder="이 설교에 대해 남기고 싶은 생각을 적어 두십시오. 이 메모는 공유되지 않습니다."></textarea><div class="st" id="memost"></div></div></div></section>
+      <section class=""><h2 class="sec" onclick="toggleSec(this)"><span class="caret">▾</span>설교 요약 — 제목을 누르면 펼쳐집니다<span class="cnt">4</span></h2><div class="sec-body"><div class="point closed"><h3 onclick="togglePoint(this)"><span class="caret">▾</span>1. 왜 편한 애굽이 아니라 광야였을까</h3><div class="range">0:14 – 8:10</div><ul><li><span class="tx" data-easy="지금 온 세상이 돈 문제, 안전 문제, 병 문제, 믿음 문제까지 다 힘든 때를 지나고 있다는 이야기로 설교를 시작합니다.">지금 온 세계가 경제, 안보, 보건, 신앙 모든 면에서 힘든 시기를 지나고 있다는 진단으로 설교를 엽니다.</span><button class="ev" onclick="toggleQuote('q1')">근거 1:21</button><div class="quote" id="q1"><b>원문 · 1:21</b>"광야와 같은 시간을 보내고 있기 때문입니다" <button class="ev" onclick="seek(81)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="힘든 때가 언젠가는 끝난다는 건 알지만, 그게 언제인지 말해 줄 수 있는 사람은 아무도 없다는 게 문제입니다.">광야는 언젠가 끝난다는 것은 알지만, 언제 끝나는지 답해줄 수 있는 사람은 없다는 것이 문제입니다.</span><button class="ev" onclick="toggleQuote('q2')">근거 1:37</button><div class="quote" id="q2"><b>원문 · 1:37</b>"광야는 머무는 것이 아니고 지나가는 것이고" <button class="ev" onclick="seek(97)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="이스라엘 사람들이 이집트를 빠져나오자마자 부딪힌 첫 문제는 먹을 게 없다는 것이었습니다. 200만 명이 먹을 밥은 돈이 있어도, 머리가 좋아도 해결이 안 되는 일이었습니다.">이스라엘 백성이 이집트를 나온 직후 맞닥뜨린 첫 문제는 먹을 것이 없다는 것이었습니다. 200만 명분의 식량은 돈이나 지혜로 해결되는 문제가 아니었습니다.</span><button class="ev" onclick="toggleQuote('q3')">근거 2:17</button><div class="quote" id="q3"><b>원문 · 2:17</b>"그것은 먹을 거가 없다는 것이었습니다" <button class="ev" onclick="seek(137)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="이집트는 큰 강을 끼고 있어 그 시대에 농사가 가장 잘 되는 곳이었습니다. 다른 데가 다 흉년이어도 거기엔 먹을 게 있었습니다.">이집트는 나일강 삼각주를 낀 당대 최고의 곡창지대였습니다. 흉년이 들어도 그곳에는 먹을 것이 있었습니다.</span><button class="ev" onclick="toggleQuote('q4')">근거 4:47</button><div class="quote" id="q4"><b>원문 · 4:47</b>"애굽은 여러분 먹을 것이 많아서 아브라함이 애굽으로 가면" <button class="ev" onclick="seek(287)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="그러면 굳이 사막을 건너지 말고 그 좋은 땅에 그냥 나라를 세우면 됐을 일입니다. 사람 생각으로는 그게 제일 말이 되는 선택입니다.">그렇다면 굳이 광야를 건너지 말고 그 좋은 땅에 나라를 세우면 될 일이었습니다. 사람의 눈으로는 그것이 가장 합리적인 선택입니다.</span><button class="ev" onclick="toggleQuote('q5')">근거 8:03</button><div class="quote" id="q5"><b>원문 · 8:03</b>"이것만큼 합리적인 방법은 없을 겁니다" <button class="ev" onclick="seek(483)">▶ 이 부분 듣기</button></div></li></ul></div><div class="point closed"><h3 onclick="togglePoint(this)"><span class="caret">▾</span>2. 첫째, &#x27;언제&#x27;가 아니라 &#x27;왜&#x27;를 물어야 합니다</h3><div class="range">8:12 – 18:59</div><ul><li><span class="tx" data-easy="힘든 때를 이기려면 먼저 묻는 말을 바꿔야 합니다. &#x27;언제 끝나요&#x27;가 아니라 &#x27;왜 저를 여기 두셨어요&#x27;로 바꾸는 것입니다.">광야에서 승리하려면 가장 먼저 질문을 바꿔야 합니다. &#x27;언제 끝납니까&#x27;에서 &#x27;왜 여기에 두셨습니까&#x27;로 시선을 옮기는 것입니다.</span><button class="ev" onclick="toggleQuote('q6')">근거 8:26</button><div class="quote" id="q6"><b>원문 · 8:26</b>"외로 우리가 시선을 옮겨야 합니다" <button class="ev" onclick="seek(506)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="우리는 힘들 때마다 언제 끝나느냐를 묻지만, 하나님이 보시는 건 그 &#x27;언제&#x27;가 아닙니다.">우리는 힘들 때마다 언제 끝나는지를 묻지만, 하나님의 관심은 그 &#x27;언제&#x27;에 있지 않습니다.</span><button class="ev" onclick="toggleQuote('q7')">근거 9:23</button><div class="quote" id="q7"><b>원문 · 9:23</b>"하나님의 관심은 언제의 관심이 없습니다" <button class="ev" onclick="seek(563)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="성경은 사막에서 보낸 40년을 &#x27;기억하라&#x27;고 말합니다. 언제 끝났는지가 아니라 왜 그 길을 걸었는지를 기억하라는 뜻입니다.">신명기 8장 2절은 광야의 40년을 &#x27;기억하라&#x27;고 말합니다. 언제 끝났는지가 아니라 왜 걸었는지를 기억하라는 것입니다.</span><button class="ev" onclick="toggleQuote('q8')">근거 9:44</button><div class="quote" id="q8"><b>원문 · 9:44</b>"너로 광야의 길을 걷게 하신 것을 기억하라" <button class="ev" onclick="seek(584)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="그러니까 힘든 때는 그냥 고생만 하는 시간이 아니라, 우리를 하나님의 사람으로 만들려는 뜻이 담긴 시간입니다.">그러므로 광야는 단순한 고생이 아니라, 우리를 하나님의 백성으로 삼으시려는 분명한 목적이 담긴 시간입니다.</span><button class="ev" onclick="toggleQuote('q9')">근거 10:24</button><div class="quote" id="q9"><b>원문 · 10:24</b>"광야는 우리를 광야에 두신 하나님의 분명한 목적과 이유가" <button class="ev" onclick="seek(624)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="만약 이집트의 풍족함을 그대로 주셨다면 이스라엘은 더는 하나님을 찾지 않았을 겁니다. 실제로 세계 교회 역사가 그렇게 흘러왔습니다.">만약 이집트의 풍요를 그대로 주셨다면 이스라엘은 더 이상 하나님을 찾지 않았을 것입니다. 실제로 세계 교회사가 이를 보여줍니다.</span><button class="ev" onclick="toggleQuote('q10')">근거 11:29</button><div class="quote" id="q10"><b>원문 · 11:29</b>"부강해질수록 기독교의 복음화율은 더 감소됩니다" <button class="ev" onclick="seek(689)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="사막에서는 내가 가진 돈도 아는 것도 아무 쓸모가 없습니다. 그래서 불평이 나올 수밖에 없는 자리이기도 합니다.">광야는 내가 가진 돈도 지혜도 아무 소용이 없는 곳이기에, 원망이 나올 수밖에 없는 자리이기도 합니다.</span><button class="ev" onclick="toggleQuote('q11')">근거 15:42</button><div class="quote" id="q11"><b>원문 · 15:42</b>"광야는 절대 편한 곳이 아닙니다" <button class="ev" onclick="seek(942)">▶ 이 부분 듣기</button></div></li></ul></div><div class="point closed"><h3 onclick="togglePoint(this)"><span class="caret">▾</span>3. 둘째, 순종이 삶이 되어야 합니다</h3><div class="range">19:03 – 28:59</div><ul><li><span class="tx" data-easy="두 번째로 필요한 것은, 말씀대로 사는 일이 어쩌다 한 번이 아니라 사는 방식 자체가 되는 것입니다.">두 번째로 필요한 것은 순종이 어쩌다 한 번이 아니라 삶 자체가 되는 것입니다.</span><button class="ev" onclick="toggleQuote('q12')">근거 19:10</button><div class="quote" id="q12"><b>원문 · 19:10</b>"순종이 우리들의 삶이 되어야 합니다" <button class="ev" onclick="seek(1150)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="성경에서 하나님이 주신 명령은 지키기 어려운 것이었습니다. 200만 명이 모인 야영지를 가로질러 밖으로 나가야 했고, 하늘에서 먹을 게 떨어진다는 말은 상식으로는 믿기 힘든 이야기였습니다.">본문에서 하나님이 주신 명령은 지키기 어려운 것이었습니다. 200만 명을 뚫고 진 밖으로 나가야 했고, 하늘에서 음식이 내린다는 말은 상식으로는 믿기 어려웠습니다.</span><button class="ev" onclick="toggleQuote('q13')">근거 20:55</button><div class="quote" id="q13"><b>원문 · 20:55</b>"여러분 하늘에서 음식이 내린다" <button class="ev" onclick="seek(1255)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="하나님이 그 힘든 시간을 통해 보고 싶으셨던 건, 말한 대로 따르는지 안 따르는지였습니다.">하나님이 광야를 통해 보고 싶으셨던 것은 명령을 따르는지 따르지 않는지였습니다.</span><button class="ev" onclick="toggleQuote('q14')">근거 19:32</button><div class="quote" id="q14"><b>원문 · 19:32</b>"이같이 하여 그들이 나의 율법을 준행하나 아니하나 내가 시험하리라" <button class="ev" onclick="seek(1172)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="따르지 않은 사람들에게도 이유는 있었습니다. 챙겨 온 먹을 게 아직 남아 믿을 구석이 있었거나, 아니면 아예 마음이 굳어 안 믿었거나 둘 중 하나였습니다.">순종하지 않은 사람들에게는 이유가 있었습니다. 아직 챙겨온 식량이 남아 믿을 구석이 있었거나, 아예 마음이 굳어 믿지 않았거나 둘 중 하나였습니다.</span><button class="ev" onclick="toggleQuote('q15')">근거 21:23</button><div class="quote" id="q15"><b>원문 · 21:23</b>"애굽에서 나올 때 음식을 넉넉히 싸 가지고 온 사람들" <button class="ev" onclick="seek(1283)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="사막은 말씀대로 해야만 살 수 있는 곳입니다. 그래서 그곳을 &#x27;따르는 법을 배우는 학교&#x27;라고 부릅니다.">광야는 순종해야만 살 수 있는 곳입니다. 그래서 광야를 순종학교라고 부릅니다.</span><button class="ev" onclick="toggleQuote('q16')">근거 23:04</button><div class="quote" id="q16"><b>원문 · 23:04</b>"살 수 있는 곳입니다" <button class="ev" onclick="seek(1384)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="낮에는 구름이, 밤에는 불이 이스라엘을 지켜 주었습니다. 그런데 그 보호를 받으려면 그것이 움직일 때 같이 움직여야 했습니다. 지켜 주심을 누리는 조건이 곧 따르는 것이었습니다.">낮의 구름기둥과 밤의 불기둥은 하나님의 보호였지만, 그 보호를 누리려면 기둥이 움직일 때 따라 움직여야 했습니다. 은혜를 누리는 조건이 순종이었습니다.</span><button class="ev" onclick="toggleQuote('q17')">근거 25:08</button><div class="quote" id="q17"><b>원문 · 25:08</b>"백성이 해야 되는 건 뭐예요?" <button class="ev" onclick="seek(1508)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="한 성도가 자기 경험을 이렇게 나눕니다. 마음이 뜨거워졌을 때 처음 든 생각을 끝까지 지키는 것, 그게 비결이라는 겁니다.">한 집사의 간증은 순종의 비결을 이렇게 말합니다. 은혜받았을 때 마음에 온 &#x27;첫 번째 생각&#x27;을 끝까지 지키는 것입니다.</span><button class="ev" onclick="toggleQuote('q18')">근거 26:31</button><div class="quote" id="q18"><b>원문 · 26:31</b>"첫 번째 그 생각을 나는 끝까지" <button class="ev" onclick="seek(1591)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="우리는 하겠다고 마음먹고도 곧바로 안 할 핑계를 찾아냅니다. 그때 나중에 든 생각이 아니라 처음 든 생각으로 돌아가야 합니다.">우리는 순종을 결단하고도 곧바로 하지 않을 이유를 찾아냅니다. 그때 두 번째 생각이 아니라 첫 번째 생각으로 돌아가야 합니다.</span><button class="ev" onclick="toggleQuote('q19')">근거 28:09</button><div class="quote" id="q19"><b>원문 · 28:09</b>"일곱 가지 법칙을 찾고 순종하지" <button class="ev" onclick="seek(1689)">▶ 이 부분 듣기</button></div></li></ul></div><div class="point closed"><h3 onclick="togglePoint(this)"><span class="caret">▾</span>4. 셋째, 변화를 기대해야 합니다</h3><div class="range">29:01 – 38:07</div><ul><li><span class="tx" data-easy="마지막으로 필요한 것은, 지금 이 시간에 하나님이 나를 만들어 가고 계신다고 기대하는 것입니다.">마지막으로 필요한 것은, 이 시간에 하나님이 나를 빚고 계심을 기대하는 것입니다.</span><button class="ev" onclick="toggleQuote('q20')">근거 29:08</button><div class="quote" id="q20"><b>원문 · 29:08</b>"변화를 여러분 기대하셔야 됩니다" <button class="ev" onclick="seek(1748)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="교회가 크게 살아난 때는 늘 힘든 시기였습니다. 인도가 식민지였을 때, 한국이 일제 강점기였을 때가 그랬습니다.">역사적인 부흥은 언제나 고난의 시기에 일어났습니다. 인도의 식민지 시기, 한국의 일제강점기, 아주사 부흥운동이 그러했습니다.</span><button class="ev" onclick="toggleQuote('q21')">근거 29:28</button><div class="quote" id="q21"><b>원문 · 29:28</b>"부흥은 광야가 있을 때 고난이 임했을" <button class="ev" onclick="seek(1768)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="이스라엘이 가장 하나님의 사람다웠던 때는 잘살 때가 아니라 사막에 있을 때였습니다.">이스라엘이 가장 하나님의 백성다웠던 때는 풍요로울 때가 아니라 광야에 있을 때였습니다.</span><button class="ev" onclick="toggleQuote('q22')">근거 30:31</button><div class="quote" id="q22"><b>원문 · 30:31</b>"다왔던 그때가 언제였냐면" <button class="ev" onclick="seek(1831)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="목사님이 자기 이야기를 꺼냅니다. 신학교에 들어가던 해에 목사이던 아버지가 쓰러지셨고, 가족은 뿔뿔이 흩어졌습니다.">설교자는 자신의 광야를 나눕니다. 신학대학교 입학하던 해에 목회하시던 아버지가 뇌출혈로 쓰러지셨고, 가족은 흩어졌습니다.</span><button class="ev" onclick="toggleQuote('q23')">근거 31:26</button><div class="quote" id="q23"><b>원문 · 31:26</b>"아버님께서 목회를 하시다가 아 60세" <button class="ev" onclick="seek(1886)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="왜 그러셨냐고 오래 따져 묻다가, 끝에 남은 건 &#x27;이제 저는 어떡해요&#x27;라는 울음뿐이었습니다.">왜 그러셨느냐고 오래 따져 묻던 기도 끝에, 남은 것은 &#x27;주님 나 이제 어떡해요&#x27;라는 울음뿐이었습니다.</span><button class="ev" onclick="toggleQuote('q24')">근거 33:46</button><div class="quote" id="q24"><b>원문 · 33:46</b>"앞에 외쳤던 기도는 주님 나 이제 어떡해요" <button class="ev" onclick="seek(2026)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="그때 마음에 떠오른 성경 구절이 &#x27;나는 마음이 부드럽고 낮으니 내게 배우라&#x27;였고, 그 한 줄을 붙잡고 살아왔습니다.">그때 마음에 떠오른 말씀이 마태복음 11장의 &#x27;나는 마음이 온유하고 겸손하니 내게 배우라&#x27;였고, 그 한 구절을 붙들고 살아왔습니다.</span><button class="ev" onclick="toggleQuote('q25')">근거 34:29</button><div class="quote" id="q25"><b>원문 · 34:29</b>"온유하고 겸손하니 너는 내게 배우라" <button class="ev" onclick="seek(2069)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="세월이 지난 뒤, 그를 아는 사람들이 하나같이 &#x27;마음이 부드럽고 낮은 사람&#x27;이라고 말했습니다. 붙잡았던 그 구절대로 하나님이 만들어 가신 것입니다.">세월이 흐른 뒤, 그를 아는 사람들이 한결같이 그를 &#x27;마음이 온유하고 겸손한 사람&#x27;이라고 평했습니다. 붙들었던 그 말씀대로 하나님이 빚어가신 것입니다.</span><button class="ev" onclick="toggleQuote('q26')">근거 36:01</button><div class="quote" id="q26"><b>원문 · 36:01</b>"마음이 참 온유하고 겸손한" <button class="ev" onclick="seek(2161)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="힘든 시간은 버려진 시간처럼 보이지만, 지나고 보면 하나님이 나를 만들어 가신 고마운 시간이었습니다.">광야의 시간은 버려진 시간처럼 보이지만, 지나고 보면 하나님이 만들어 가신 은혜의 시간이었습니다.</span><button class="ev" onclick="toggleQuote('q27')">근거 36:47</button><div class="quote" id="q27"><b>원문 · 36:47</b>"마치 버림받은 것 같고 시간 낭비한" <button class="ev" onclick="seek(2207)">▶ 이 부분 듣기</button></div></li><li><span class="tx" data-easy="이 이김을 실제로 보여 주신 분이 예수님입니다. 그분은 십자가라는 가장 힘든 자리에서 끝까지 말씀대로 하셨습니다.">이 광야에서의 승리를 실제로 보여주신 분은 예수 그리스도입니다. 그분은 십자가라는 광야에서 끝까지 순종하셨습니다.</span><button class="ev" onclick="toggleQuote('q28')">근거 38:20</button><div class="quote" id="q28"><b>원문 · 38:20</b>"예수님은 광야에서 십자가의 광야에서 그를" <button class="ev" onclick="seek(2300)">▶ 이 부분 듣기</button></div></li></ul></div></div></section>
+      <section class="closed"><h2 class="sec" onclick="toggleSec(this)"><span class="caret">▾</span>모르면 막히는 말 — 누르면 그 대목이 재생됩니다<span class="cnt">14</span></h2><div class="sec-body"><div class="gloss-grid"><dl class="gloss" onclick="seek(81)" title="설교에서 이 말이 나온 곳으로 이동"><dt>광야<span class="at">1:21 ▶</span></dt><dd>성경에 나오는 사막 같은 황무지입니다. 이스라엘 민족이 이집트를 탈출한 뒤 40년간 이곳을 지났습니다. 이 설교에서는 실제 사막보다도 &#x27;내가 가진 돈이나 능력이 아무 소용없어지는 힘든 시기&#x27;를 가리키는 말로 쓰입니다.</dd></dl><dl class="gloss" onclick="seek(132)" title="설교에서 이 말이 나온 곳으로 이동"><dt>출애굽 / 애굽<span class="at">2:12 ▶</span></dt><dd>&#x27;애굽&#x27;은 오늘날의 이집트를 가리키는 옛 이름입니다. &#x27;출애굽&#x27;은 노예로 살던 이스라엘 민족이 그 이집트를 빠져나온 사건을 말합니다. 성경에서 가장 유명한 탈출 이야기입니다.</dd></dl><dl class="gloss" onclick="seek(297)" title="설교에서 이 말이 나온 곳으로 이동"><dt>출애굽기 / 신명기<span class="at">4:57 ▶</span></dt><dd>둘 다 성경의 책 이름입니다. 출애굽기는 이집트 탈출과 광야 생활 초기를, 신명기는 광야 40년을 마친 뒤 남긴 마지막 당부를 담고 있습니다. &#x27;출애굽기 16장 4절&#x27;은 그 책의 16번째 장, 4번째 문장이라는 뜻입니다.</dd></dl><dl class="gloss" onclick="seek(170)" title="설교에서 이 말이 나온 곳으로 이동"><dt>구름기둥과 불기둥<span class="at">2:50 ▶</span></dt><dd>광야를 지나는 이스라엘 백성 앞에 하나님이 세워 주셨다는 표시입니다. 낮에는 구름이 뜨거운 햇볕을 막아 주고, 밤에는 불이 추위를 막아 주었습니다. 이것이 움직이면 백성도 따라 움직여야 했습니다.</dd></dl><dl class="gloss" onclick="seek(355)" title="설교에서 이 말이 나온 곳으로 이동"><dt>요셉과 바로<span class="at">5:55 ▶</span></dt><dd>요셉은 형들에게 팔려 이집트로 간 이스라엘 사람으로, 왕의 꿈을 풀이해 준 뒤 총리가 되었습니다. &#x27;바로&#x27;는 이집트 왕을 부르는 호칭입니다. 요셉 덕분에 이스라엘 가족이 이집트에 정착했다가, 세월이 흘러 노예가 됩니다.</dd></dl><dl class="gloss" onclick="seek(1247)" title="설교에서 이 말이 나온 곳으로 이동"><dt>만나<span class="at">20:47 ▶</span></dt><dd>설교에서 &#x27;하늘에서 내리는 음식&#x27;이라고 말한 것이 바로 만나입니다. 이스라엘 백성이 광야에서 매일 아침 거두어 먹었다는 양식으로, 하루치만 거둘 수 있었습니다. 오늘 본문 출애굽기 16장이 그 시작 장면입니다.</dd></dl><dl class="gloss" onclick="seek(619)" title="설교에서 이 말이 나온 곳으로 이동"><dt>영가족<span class="at">10:19 ▶</span></dt><dd>사랑의교회에서 교인들을 서로 부르는 말입니다. &#x27;믿음으로 한 가족&#x27;이라는 뜻으로, 다른 교회에서는 잘 쓰지 않는 이 교회 고유의 표현입니다.</dd></dl><dl class="gloss" onclick="seek(1055)" title="설교에서 이 말이 나온 곳으로 이동"><dt>집사님 / 권사님 / 후임목사<span class="at">17:35 ▶</span></dt><dd>교회 안의 직분 이름입니다. 집사와 권사는 교회를 섬기는 평신도 직분이고(권사가 보통 더 오래 신앙생활을 한 분입니다), 후임목사는 담임목사를 이어 사역하는 목사를 뜻합니다. 나이나 서열이라기보다 맡은 역할의 이름에 가깝습니다.</dd></dl><dl class="gloss" onclick="seek(1002)" title="설교에서 이 말이 나온 곳으로 이동"><dt>다락방 / 순 모임 / 훈련반 / 제자훈련<span class="at">16:42 ▶</span></dt><dd>사랑의교회의 소그룹 활동입니다. 교인들이 열 명 안팎으로 모여 성경을 공부하고 삶을 나눕니다. &#x27;제자훈련&#x27;은 이 교회가 특히 강조하는 체계적인 성경 훈련 과정입니다. 설교 중 &#x27;식탁의 교제&#x27;는 이 모임에서 함께 식사하며 나누는 시간을 말합니다.</dd></dl><dl class="gloss" onclick="seek(1063)" title="설교에서 이 말이 나온 곳으로 이동"><dt>간증<span class="at">17:43 ▶</span></dt><dd>자기 삶에서 겪은 일을 신앙의 관점으로 다른 사람들 앞에서 이야기하는 것입니다. 이 설교 후반부에서 설교자가 아버지 이야기를 하는 부분이 바로 간증입니다.</dd></dl><dl class="gloss" onclick="seek(842)" title="설교에서 이 말이 나온 곳으로 이동"><dt>새벽기도<span class="at">14:02 ▶</span></dt><dd>이른 아침에 교회에 모여 드리는 기도 모임입니다. 한국 교회의 오랜 관습으로, 이 설교에서는 &#x27;교회의 영적인 힘&#x27;을 재는 잣대처럼 언급됩니다.</dd></dl><dl class="gloss" onclick="seek(1765)" title="설교에서 이 말이 나온 곳으로 이동"><dt>부흥<span class="at">29:25 ▶</span></dt><dd>교회나 신앙이 다시 뜨거워지고 사람이 몰려드는 시기를 말합니다. 설교에 나온 &#x27;아주사 부흥운동&#x27;은 1900년대 초 미국 로스앤젤레스의 가난한 동네에서 시작된 사건이고, &#x27;무디&#x27;는 시카고 대화재 이후 활동한 유명한 전도자입니다.</dd></dl><dl class="gloss" onclick="seek(867)" title="설교에서 이 말이 나온 곳으로 이동"><dt>맘몬주의 / 세속주의<span class="at">14:27 ▶</span></dt><dd>&#x27;맘몬&#x27;은 돈을 뜻하는 성경 속 단어입니다. 맘몬주의는 돈을 인생의 가장 높은 자리에 두는 태도를, 세속주의는 신앙보다 세상의 기준을 앞세우는 태도를 가리킵니다.</dd></dl><dl class="gloss" onclick="seek(2059)" title="설교에서 이 말이 나온 곳으로 이동"><dt>멍에<span class="at">34:19 ▶</span></dt><dd>소 두 마리의 목에 걸어 함께 밭을 갈게 하는 나무 틀입니다. 마태복음 11장에서 예수님이 &#x27;내 멍에를 메라&#x27;고 하신 것은, 짐을 혼자 지지 말고 나와 함께 지자는 초대의 뜻입니다.</dd></dl></div></div></section>
+      <section class="closed"><h2 class="sec" onclick="toggleSec(this)"><span class="caret">▾</span>여기서 어려우셨다면 — 누르면 그 대목이 재생됩니다<span class="cnt">5</span></h2><div class="sec-body"><div class="hard" onclick="seek(222)" title="이 대목으로 영상 이동"><div class="q">갑자기 &#x27;힉소스 왕조&#x27;, &#x27;아모세 왕조&#x27; 같은 이집트 역사가 빠르게 지나갑니다 <span class="at">3:42 ▶</span></div><div class="a">요지는 하나입니다. 이집트는 원래 이스라엘에게 우호적이었지만(요셉 덕분), 왕조가 바뀌면서 요셉을 기억하는 사람이 사라졌고 그때부터 이스라엘이 노예가 되었다는 것입니다. 왕조 이름은 외우지 않으셔도 됩니다.</div></div><div class="hard" onclick="seek(576)" title="이 대목으로 영상 이동"><div class="q">출애굽기를 설명하다가 갑자기 신명기 8장을 읽습니다 <span class="at">9:36 ▶</span></div><div class="a">신명기는 광야 40년이 다 끝난 뒤에 돌아보며 쓴 책입니다. 그래서 &#x27;광야가 왜 있었는가&#x27;에 대한 답을 신명기에서 가져오는 것입니다. 사건은 출애굽기, 해석은 신명기인 셈입니다.</div></div><div class="hard" onclick="seek(1212)" title="이 대목으로 영상 이동"><div class="q">&#x27;진 밖으로 나가라&#x27;는 말이 왜 어려운 명령인지 잘 와닿지 않을 수 있습니다 <span class="at">20:12 ▶</span></div><div class="a">&#x27;진&#x27;은 200만 명이 천막을 치고 모여 있는 야영지 전체를 말합니다. 집 앞 마당이 아니라 그 거대한 야영지를 가로질러 바깥까지 걸어 나가야 한다는 뜻이라, 매일 반복하기에는 상당한 수고였습니다.</div></div><div class="hard" onclick="seek(2059)" title="이 대목으로 영상 이동"><div class="q">&#x27;내게 멍에를 매고 내게 배우라&#x27;가 무슨 뜻인지 모호합니다 <span class="at">34:19 ▶</span></div><div class="a">멍에는 소 두 마리를 나란히 묶어 함께 밭을 갈게 하는 도구입니다. 즉 &#x27;네 짐을 혼자 끌지 말고 나와 나란히 서서 함께 끌자&#x27;는 초대입니다. 쉬게 해주겠다는 말과 멍에를 메라는 말이 모순처럼 들리지만, 함께 지면 가벼워진다는 뜻입니다.</div></div><div class="hard" onclick="seek(1340)" title="이 대목으로 영상 이동"><div class="q">설교 중 인용된 &#x27;광야&#x27;라는 찬양이 무엇인지 모르실 수 있습니다 <span class="at">22:20 ▶</span></div><div class="a">한국 교회에서 널리 불리는 CCM(현대 기독교 음악)입니다. &#x27;주님 손 놓고는 단 하루도 살 수 없는 곳&#x27;이라는 가사가 이 설교의 두 번째 대지와 정확히 맞물립니다.</div></div></div></section>
+      <div class="verify">
+        <b>이 페이지의 요약은 설교 원문에서만 나왔습니다.</b><br>
+        근거 대조 통과 31문장 · 근거 없어 폐기 0문장<br>
+        각 문장의 <span style="font-family:var(--mono)">근거</span> 버튼을 누르면 설교자의 실제 발언을 확인하실 수 있습니다.
+        자막 출처: auto
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pop" id="savepop" onclick="if(event.target===this)closeSave()">
+  <div class="popbox">
+    <h3>어디에 담을까요</h3>
+    <p>유튜브 재생목록처럼, 원하는 폴더에 넣어 두실 수 있습니다.</p>
+    <div id="folderlist"></div>
+    <div class="newf">
+      <input id="newfname" placeholder="새 폴더 이름"
+             onkeydown="if(event.key==='Enter')newFolder()">
+      <button onclick="newFolder()">만들기</button>
+    </div>
+    <button class="popclose" onclick="closeSave()">닫기</button>
+  </div>
+</div>
+<script>const RP = "../";</script>
+<script>
+/* ── 저장소 (이 브라우저에만 남습니다) ───────────────────────── */
+const DB = {
+  get(k, d){ try{ return JSON.parse(localStorage.getItem('malssm:'+k)) ?? d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('malssm:'+k, JSON.stringify(v)); }catch(e){} },
+};
+function toast(msg){
+  let t = document.querySelector('.toast');
+  if(!t){ t = document.createElement('div'); t.className='toast'; document.body.appendChild(t); }
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 1900);
+}
+
+/* ── 최근 본 설교 ────────────────────────────────────────────── */
+function noteVisit(vid, title, date, cat){
+  const r = DB.get('recent', []).filter(x=>x.id!==vid);
+  r.unshift({id:vid, title, date, cat, at:Date.now()});
+  DB.set('recent', r.slice(0, 24));
+}
+function dropRecent(vid){
+  DB.set('recent', DB.get('recent', []).filter(x=>x.id!==vid));
+  renderRecent();
+  toast('최근 본 목록에서 지웠습니다');
+}
+function clearRecent(){
+  if(!confirm('최근 본 설교를 모두 지울까요? 저장한 폴더와 메모는 그대로 남습니다.')) return;
+  DB.set('recent', []); renderRecent(); toast('모두 지웠습니다');
+}
+function renderRecent(){
+  const box = document.getElementById('recentbox');
+  if(!box) return;
+  const r = DB.get('recent', []);
+  if(!r.length){ box.innerHTML =
+    '<div class="empty" style="padding:34px 0">아직 본 설교가 없습니다.</div>'; return; }
+  box.innerHTML = '<div class="cards">' + r.map(x=>`
+    <div class="cardwrap">
+      <button class="cardx" title="목록에서 지우기"
+        onclick="event.preventDefault();dropRecent('${x.id}')">✕</button>
+      <a class="card" href="${RP}s/${x.id}.html">
+        <img class="thumb" alt="" loading="lazy"
+             src="https://i.ytimg.com/vi/${x.id}/hqdefault.jpg">
+        <div class="body">
+          <div class="date"><span class="cat">${esc2(x.cat||'')}</span>${esc2(x.date||'')}</div>
+          <h3>${esc2(x.title||'')}</h3>
+        </div></a>
+    </div>`).join('') + '</div>';
+}
+function esc2(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ── 저장 폴더 (유튜브 재생목록처럼) ─────────────────────────── */
+function folders(){ return DB.get('folders', {'나중에 다시 볼 말씀': []}); }
+function savedIn(vid){ const f=folders(); return Object.keys(f).filter(k=>f[k].includes(vid)); }
+function openSave(vid, title){
+  const pop = document.getElementById('savepop');
+  pop.dataset.vid = vid; pop.dataset.title = title || '';
+  drawFolders(); pop.classList.add('show');
+}
+function closeSave(){ document.getElementById('savepop').classList.remove('show'); }
+function drawFolders(){
+  const pop = document.getElementById('savepop'), vid = pop.dataset.vid;
+  const f = folders();
+  document.getElementById('folderlist').innerHTML = Object.keys(f).map(k=>`
+    <div class="folder ${f[k].includes(vid)?'in':''}" onclick="toggleFolder('${encodeURIComponent(k)}')">
+      <span>${f[k].includes(vid)?'✓':'＋'}</span><span>${esc2(k)}</span>
+      <span class="n">${f[k].length}편</span>
+    </div>`).join('') || '<p>폴더가 없습니다. 아래에서 만들어 주십시오.</p>';
+}
+function toggleFolder(enc){
+  const name = decodeURIComponent(enc);
+  const pop = document.getElementById('savepop'), vid = pop.dataset.vid;
+  const f = folders();
+  f[name] = f[name].includes(vid) ? f[name].filter(x=>x!==vid) : [...f[name], vid];
+  DB.set('folders', f); drawFolders(); refreshSaveBtn();
+  toast(f[name].includes(vid) ? `'${name}'에 담았습니다` : `'${name}'에서 뺐습니다`);
+}
+function newFolder(){
+  const el = document.getElementById('newfname');
+  const name = el.value.trim();
+  if(!name) return;
+  const f = folders();
+  if(f[name]){ toast('같은 이름의 폴더가 있습니다'); return; }
+  f[name] = []; DB.set('folders', f); el.value=''; drawFolders();
+}
+function refreshSaveBtn(){
+  const b = document.getElementById('savebtn');
+  if(!b) return;
+  const n = savedIn(b.dataset.vid).length;
+  b.classList.toggle('on', n>0);
+  b.innerHTML = n ? `★ 담김 (${n})` : '☆ 담기';
+}
+
+/* ── 메모 (나만 봅니다) ──────────────────────────────────────── */
+function initMemo(vid){
+  const t = document.getElementById('memo');
+  if(!t) return;
+  const notes = DB.get('notes', {});
+  t.value = notes[vid] || '';
+  const st = document.getElementById('memost');
+  let h;
+  t.addEventListener('input', ()=>{
+    st.textContent = '입력 중…';
+    clearTimeout(h);
+    h = setTimeout(()=>{
+      const n = DB.get('notes', {});
+      if(t.value.trim()) n[vid] = t.value; else delete n[vid];
+      DB.set('notes', n);
+      st.textContent = '저장됨 · ' + new Date().toLocaleTimeString('ko-KR');
+    }, 600);
+  });
+}
+
+/* ── 실천 체크 + 내가 추가한 항목 + 주간 목표 ────────────────── */
+function checks(){ return DB.get('checks', {}); }
+function setCheck(vid, key, on){
+  const c = checks(); c[vid] = c[vid] || {};
+  if(on) c[vid][key] = Date.now(); else delete c[vid][key];
+  DB.set('checks', c); drawGoal();
+}
+function myActs(vid){ return (DB.get('myacts', {})[vid]) || []; }
+function addAct(vid){
+  const el = document.getElementById('newact');
+  const text = el.value.trim();
+  if(!text) return;
+  const m = DB.get('myacts', {});
+  m[vid] = [...(m[vid]||[]), {id:'m'+Date.now(), text}];
+  DB.set('myacts', m); el.value=''; drawMyActs(vid); toast('실천을 추가했습니다');
+}
+function delAct(vid, id){
+  const m = DB.get('myacts', {});
+  m[vid] = (m[vid]||[]).filter(x=>x.id!==id);
+  DB.set('myacts', m);
+  setCheck(vid, id, false);
+  drawMyActs(vid);
+}
+function drawMyActs(vid){
+  const box = document.getElementById('myacts');
+  if(!box) return;
+  const c = (checks()[vid]) || {};
+  box.innerHTML = myActs(vid).map(a=>`
+    <div class="act ${c[a.id]?'done':''}">
+      <input type="checkbox" id="${a.id}" ${c[a.id]?'checked':''}
+        onchange="setCheck('${vid}','${a.id}',this.checked);this.closest('.act').classList.toggle('done',this.checked)">
+      <div style="flex:1"><label for="${a.id}">${esc2(a.text)}</label>
+        <span class="mine">내가 추가</span></div>
+      <button class="del" title="지우기" onclick="delAct('${vid}','${a.id}')">✕</button>
+    </div>`).join('');
+}
+function weekStart(){
+  const d = new Date(); d.setHours(0,0,0,0);
+  d.setDate(d.getDate() - ((d.getDay()+6)%7));   // 월요일 기준
+  return d.getTime();
+}
+function weekDone(){
+  const c = checks(), from = weekStart();
+  let n = 0;
+  for(const v in c) for(const k in c[v]) if(c[v][k] >= from) n++;
+  return n;
+}
+function setGoal(v){ DB.set('goal', Math.max(1, Math.min(99, parseInt(v)||1))); drawGoal(); }
+function drawGoal(){
+  const box = document.getElementById('goalbox');
+  if(!box) return;
+  const goal = DB.get('goal', 3), done = weekDone();
+  const pct = Math.min(100, Math.round(done/goal*100));
+  box.className = 'goal' + (done>=goal ? ' done' : '');
+  box.innerHTML = `
+    <div class="top">
+      <span>이번 주</span><b>${done}</b><span>/</span>
+      <input type="number" min="1" max="99" value="${goal}"
+             onchange="setGoal(this.value)" title="목표 개수를 정하십시오">
+      <span>개 실천</span>
+    </div>
+    <div class="bar"><i style="width:${pct}%"></i></div>
+    <div class="msg">${done>=goal ? '이번 주 목표를 채우셨습니다.'
+      : `${goal-done}개 남았습니다. 월요일에 다시 시작됩니다.`}</div>`;
+}
+
+/* ── 오류 리포트 ─────────────────────────────────────────────── */
+function report(kind, ref){
+  const what = prompt(
+    kind==='fact' ? '어느 부분이 사실과 다른가요? (성경 고증·인물 정보 등)'
+                  : '무엇이 잘못 동작하나요?');
+  if(!what || !what.trim()) return;
+  const list = DB.get('reports', []);
+  list.unshift({kind, ref, what:what.trim(), page:location.pathname.split('/').pop(),
+                at:new Date().toISOString()});
+  DB.set('reports', list.slice(0,200));
+  toast('기록했습니다. 내 서재에서 모아 보실 수 있습니다');
+}
+</script>
+<footer><div class="wrap">설교 저작권은 사랑의교회에 있습니다. 영상은 임베드로만 재생됩니다.</div></footer>
+<script>const PLAIN={"광야": "메마르고 텅 빈 땅(사람이 살기 힘든 곳)", "하나님": "세상을 만드시고 다스리시는 분", "순종": "말씀대로 따르는 것", "말씀": "성경에 담긴 하나님의 말", "애굽": "지금의 이집트", "승리": "이겨냄", "은혜": "받을 자격이 없는데도 거저 주어진 사랑"};</script>
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  const VID = "9S3lRg-Rd_4";
+  noteVisit(VID, "[사랑의교회] 광야에서의 승리 - 윤대혁 후임목사",
+            "2026. 08. 09 (일)",
+            "주일예배");
+  refreshSaveBtn(); initMemo(VID); drawMyActs(VID);
+  // 설교에 들어 있던 실천 항목의 체크 상태 복원
+  const c = (checks()[VID]) || {};
+  document.querySelectorAll('.act input[type=checkbox][id^="a"]').forEach(cb=>{
+    if(c[cb.id]) { cb.checked = true; cb.closest('.act').classList.add('done'); }
+    cb.addEventListener('change', ()=> setCheck(VID, cb.id, cb.checked));
+  });
+});
+</script>
+<script>
+let YT_PLAYER=null, YT_READY=false, CLIP_END=null;
+function onYouTubeIframeAPIReady(){
+  YT_PLAYER=new YT.Player('player',{events:{onReady:()=>{YT_READY=true;}}});
+  setInterval(()=>{
+    if(!YT_READY||CLIP_END===null)return;
+    try{ if(YT_PLAYER.getCurrentTime()>=CLIP_END){YT_PLAYER.pauseVideo();CLIP_END=null;
+      document.querySelectorAll('.clip.on').forEach(x=>x.classList.remove('on'));} }catch(e){}
+  },400);
+}
+function ensureVisible(){
+  const f=document.getElementById('player');
+  const r=f.getBoundingClientRect();
+  if(r.top<56||r.bottom>window.innerHeight+8||window.innerWidth<1000)
+    f.scrollIntoView({behavior:'smooth',block:'center'});
+  f.classList.remove('flash'); void f.offsetWidth; f.classList.add('flash');
+  setTimeout(()=>f.classList.remove('flash'),900);
+}
+function seek(sec,end,el){
+  CLIP_END = (end===undefined||end===null)?null:end;
+  document.querySelectorAll('.clip.on').forEach(x=>x.classList.remove('on'));
+  if(el&&el.classList.contains('clip'))el.classList.add('on');
+  if(YT_READY){YT_PLAYER.seekTo(sec,true);YT_PLAYER.playVideo();}
+  else{const f=document.getElementById('player');
+       f.src=f.src.replace(/([?&])start=\d+/,'$1start='+Math.floor(sec));}
+  ensureVisible();
+}
+function toggleQuote(id){event.stopPropagation();document.getElementById(id).classList.toggle('open');}
+
+/* ---------- 접기 / 펼치기 ---------- */
+function toggleSec(h){h.parentElement.classList.toggle('closed');}
+function togglePoint(h){h.parentElement.classList.toggle('closed');}
+function foldAll(btn){
+  const pts=[...document.querySelectorAll('.point')];
+  const open=pts.some(p=>!p.classList.contains('closed'));
+  pts.forEach(p=>p.classList.toggle('closed',open));
+  btn.textContent = open ? '요약 모두 펼치기' : '요약 모두 접기';
+  btn.classList.toggle('on',open);
+}
+
+/* ---------- 문장 통째로 쉬운 말로 바꾸기 ---------- */
+let EASY = false;
+function easyMode(btn){
+  EASY = !EASY;
+  btn.classList.toggle('on', EASY);
+  const nodes = [...document.querySelectorAll('.tx[data-easy]')];
+  nodes.forEach(el=>{
+    if(!el.dataset.orig) el.dataset.orig = el.textContent;
+    el.style.transition = 'opacity .18s';
+    el.style.opacity = 0;
+  });
+  setTimeout(()=>{
+    nodes.forEach(el=>{
+      el.textContent = EASY ? el.dataset.easy : el.dataset.orig;
+      el.style.opacity = 1;
+    });
+    const b = document.getElementById('easybar');
+    if(b) b.classList.toggle('show', EASY);
+  }, 190);
+}
+
+/* ---------- (구) 키워드 단어 치환 ---------- */
+const ACTIVE=new Set();
+let ORIG=null;
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function swapWord(word,el){
+  if(!PLAIN[word])return;
+  if(ACTIVE.has(word))ACTIVE.delete(word); else ACTIVE.add(word);
+  el.classList.toggle('on');
+  updateBar();
+  applySwap();
+}
+function updateBar(){
+  const bar=document.getElementById('swapbar');
+  if(!bar)return;
+  bar.classList.toggle('show',ACTIVE.size>0);
+  if(ACTIVE.size){
+    document.getElementById('swaplist').innerHTML =
+      [...ACTIVE].map(w=>'<b>'+esc(w)+'</b> → '+esc(PLAIN[w])).join(' &nbsp;·&nbsp; ');
+  }
+}
+function resetSwap(){
+  ACTIVE.clear();
+  document.querySelectorAll('button.chip.on').forEach(c=>c.classList.remove('on'));
+  updateBar(); applySwap();
+}
+function applySwap(){
+  const root=document.getElementById('swapzone');
+  if(ORIG===null)ORIG=root.innerHTML;
+  const openIds=[...root.querySelectorAll('.quote.open')].map(q=>q.id);
+  root.innerHTML=ORIG;
+  openIds.forEach(id=>{const q=root.querySelector('#'+id); if(q)q.classList.add('open');});
+  if(!ACTIVE.size)return;
+  const words=[...ACTIVE].sort((a,b)=>b.length-a.length);
+  const walk=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{
+    acceptNode(n){
+      // 원문 인용은 절대 건드리지 않습니다 (근거의 무결성)
+      for(let p=n.parentElement;p;p=p.parentElement)
+        if(p.classList&&p.classList.contains('quote'))return NodeFilter.FILTER_REJECT;
+      return words.some(w=>n.nodeValue.includes(w))
+        ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }});
+  const nodes=[];while(walk.nextNode())nodes.push(walk.currentNode);
+  nodes.forEach(n=>{
+    let s=n.nodeValue;
+    words.forEach(w=>{s=s.split(w).join('\u0001'+w+'\u0002');});
+    const span=document.createElement('span');
+    span.innerHTML=esc(s).replace(/\u0001([\s\S]+?)\u0002/g,
+      (m,w)=>'<mark class="swap" title="원래 단어: '+esc(w)+'">'+esc(PLAIN[w])+'</mark>');
+    n.parentNode.replaceChild(span,n);
+  });
+}
+function toggleAct(cb){cb.closest('.act').classList.toggle('done',cb.checked);save();}
+function key(){return 'act:'+document.body.dataset.vid;}
+function save(){const v=[...document.querySelectorAll('.act input')].map(c=>c.checked);
+  try{window.__acts=v;}catch(e){}}
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body></html>

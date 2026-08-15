@@ -1,0 +1,641 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>말씀 검색 · 말씀 한눈에</title>
+<style>
+:root{
+  --bg:#faf8f5; --surface:#fff; --line:#e7e1d8; --ink:#231f1a; --muted:#7a7268;
+  --accent:#8a5a2b; --accent-soft:#f2e8dc; --ring:rgba(138,90,43,.18);
+  --good:#2f7d5d; --warn:#a8442a;
+  --radius:14px; --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#171512;--surface:#201d19;--line:#332e28;--ink:#efe9e0;--muted:#a79d90;
+        --accent:#d8a25f;--accent-soft:#2d2620;--ring:rgba(216,162,95,.22);}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR',system-ui,sans-serif;
+  line-height:1.75;-webkit-font-smoothing:antialiased;font-size:16px}
+a{color:inherit}
+.wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+header.top{border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:50}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-weight:700;letter-spacing:-.02em;text-decoration:none;font-size:17px}
+.brand small{display:block;font-weight:400;font-size:11px;color:var(--muted);letter-spacing:0}
+.badge{font-size:11px;color:var(--muted);border:1px solid var(--line);
+  padding:3px 9px;border-radius:99px}
+
+.nav{display:flex;align-items:center;gap:16px}
+.nav a{font-size:14px;text-decoration:none;font-weight:600;color:var(--muted)}
+.nav a:hover{color:var(--accent)}
+
+/* 메인 화면 */
+.cover{padding:60px 0 34px;max-width:720px}
+.cover h1{font-size:36px;margin:0 0 14px;letter-spacing:-.035em;line-height:1.3}
+.cover p{margin:0 0 16px;color:var(--muted);font-size:16.5px}
+.cover .stat{font-size:13px;color:var(--accent);background:var(--accent-soft);
+  display:inline-block;padding:6px 14px;border-radius:99px}
+.menu{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  padding-bottom:44px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px;text-decoration:none;display:block;transition:all .15s}
+.tile:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--ring);border-color:var(--accent)}
+.tile .ico{font-size:26px;margin-bottom:10px}
+.tile h3{margin:0 0 6px;font-size:18px;letter-spacing:-.02em}
+.tile p{margin:0 0 14px;font-size:14px;color:var(--muted);line-height:1.6}
+.tile .go{font-size:13px;font-weight:700;color:var(--accent)}
+.tile.off{opacity:.5;cursor:default}
+.tile.off:hover{transform:none;box-shadow:none;border-color:var(--line)}
+.tile.off .go{color:var(--muted)}
+h2.sec2{font-size:15px;letter-spacing:-.01em;margin:0 0 14px}
+
+/* 목록 화면 머리 */
+.listhead{display:flex;align-items:flex-end;justify-content:space-between;
+  gap:48px;padding:44px 0 22px;flex-wrap:wrap}
+.lh-left h1{font-size:28px;margin:0 0 6px;letter-spacing:-.03em}
+.lh-left p{margin:0;color:var(--muted);font-size:14px}
+.lh-right{flex:none;min-width:300px}
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);
+  border:1px solid var(--line);border-radius:99px;padding:9px 15px;transition:border-color .15s}
+.search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.search .mag{opacity:.5;font-size:14px}
+.search input{flex:1;border:0;background:none;outline:none;font:inherit;
+  font-size:14.5px;color:var(--ink);min-width:0}
+.search input::-webkit-search-cancel-button{display:none}
+.search .clr{border:0;background:none;color:var(--muted);cursor:pointer;
+  font-size:13px;padding:0 2px}
+.search .clr:hover{color:var(--accent)}
+.hit{font-size:12.5px;color:var(--accent);margin:7px 0 0;text-align:right;min-height:18px}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;padding:0 0 22px}
+.fchip{font:inherit;font-size:13px;cursor:pointer;background:var(--surface);
+  border:1px solid var(--line);color:var(--muted);border-radius:99px;
+  padding:6px 14px;transition:all .15s}
+.fchip:hover{border-color:var(--accent);color:var(--accent)}
+.fchip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.fchip b{margin-left:6px;font-variant-numeric:tabular-nums;opacity:.6;font-weight:600}
+.fchip.on b{opacity:.85}
+.card .cat{background:var(--accent-soft);color:var(--accent);border-radius:5px;
+  padding:1px 7px;margin-right:7px;font-weight:600;font-size:11px}
+
+@media(max-width:760px){
+  .listhead{gap:20px}
+  .lh-right{min-width:100%}
+  .cover h1{font-size:28px}
+}
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));padding-bottom:64px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;text-decoration:none;display:flex;flex-direction:column;
+  transition:transform .15s ease,box-shadow .15s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--ring)}
+.card .thumb{aspect-ratio:16/9;width:100%;object-fit:cover;background:#000;display:block}
+.filewarn{display:none;background:#a8442a;color:#fff;padding:12px 16px;border-radius:12px;
+  margin:16px 0;font-size:14px;line-height:1.6}
+.filewarn code{background:rgba(255,255,255,.2);padding:2px 7px;border-radius:5px;
+  font-family:var(--mono);font-size:13px}
+.card .body{padding:16px}
+.card .date{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.card h3{margin:6px 0 8px;font-size:16px;letter-spacing:-.02em;line-height:1.45}
+.card .one{font-size:14px;color:var(--muted);margin:0 0 12px}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.chip{font-size:12.5px;background:var(--accent-soft);color:var(--accent);
+  border-radius:99px;padding:4px 11px;white-space:nowrap;border:1px solid transparent}
+.chip b{font-variant-numeric:tabular-nums;opacity:.65;font-weight:600;margin-left:3px}
+
+/* 누를 수 있는 키워드 = 쉬운말 스위치 */
+button.chip{font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  padding:4px 12px 4px 6px;transition:all .15s}
+button.chip .sw{width:26px;height:15px;border-radius:99px;background:var(--line);
+  position:relative;flex:none;transition:background .18s}
+button.chip .sw::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;
+  border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform .18s}
+button.chip:hover{border-color:var(--accent)}
+button.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+button.chip.on b{opacity:.8;color:#fff}
+button.chip.on .sw{background:rgba(255,255,255,.45)}
+button.chip.on .sw::after{transform:translateX(11px)}
+
+/* 켜져 있을 때 상단 상태 표시 */
+.swapbar{display:none;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0 0;
+  background:var(--accent-soft);border:1px solid var(--accent);border-radius:12px;
+  padding:10px 14px;font-size:13.5px;color:var(--accent)}
+.swapbar.show{display:flex}
+.swapbar b{font-weight:700}
+.swapbar button{margin-left:auto;font:inherit;font-size:12.5px;cursor:pointer;
+  background:var(--accent);color:#fff;border:0;border-radius:99px;padding:4px 12px}
+
+/* detail */
+.sermon-head{padding:32px 0 20px;border-bottom:1px solid var(--line)}
+.sermon-head .date{font-size:13px;color:var(--muted)}
+.sermon-head h1{font-size:27px;margin:6px 0 14px;letter-spacing:-.03em;line-height:1.4}
+.oneline{font-size:19px;line-height:1.6;background:var(--accent-soft);color:var(--accent);
+  border-radius:var(--radius);padding:18px 20px;margin:0 0 14px;font-weight:600;letter-spacing:-.02em}
+.scripture{font-size:14px;color:var(--muted)}
+.scripture b{color:var(--ink);font-weight:600}
+
+.layout{display:grid;gap:36px;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);
+  align-items:start;padding:28px 0 80px}
+@media(max-width:1000px){.layout{grid-template-columns:1fr;gap:24px}}
+.sticky{position:sticky;top:80px}
+@media(max-width:1000px){.sticky{position:static}}
+.player{aspect-ratio:16/9;width:100%;border:0;border-radius:var(--radius);
+  background:#000;display:block;transition:box-shadow .3s}
+.player.flash{box-shadow:0 0 0 4px var(--accent)}
+
+section{margin:0 0 30px}
+h2.sec{font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--muted);
+  text-transform:uppercase;margin:0 0 12px;display:flex;align-items:center;gap:8px;
+  cursor:pointer;user-select:none}
+h2.sec:hover{color:var(--accent)}
+h2.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+/* 삼각형: 아래(▾)=펼침, 위(▴)=접힘 */
+.caret{display:inline-block;transition:transform .2s;font-size:11px;line-height:1}
+section.closed .caret{transform:rotate(180deg)}
+section.closed .sec-body{display:none}
+section.closed h2.sec{margin-bottom:0}
+.cnt{font-weight:600;opacity:.65;font-variant-numeric:tabular-nums}
+section.closed .cnt::after{content:" · 접힘"}
+
+/* 접기 / 쉬운말 도구 */
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+.tool{font-size:12.5px;border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  border-radius:99px;padding:5px 13px;cursor:pointer;font-family:inherit;transition:all .15s}
+.tool:hover{border-color:var(--accent);color:var(--accent)}
+.tool.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.tool.sw2{display:inline-flex;align-items:center;gap:7px;padding-left:7px}
+.tool.sw2 .sw{width:26px;height:15px;border-radius:99px;background:var(--line);
+  position:relative;flex:none;transition:background .18s}
+.tool.sw2 .sw::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;
+  border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform .18s}
+.tool.sw2.on .sw{background:rgba(255,255,255,.5)}
+.tool.sw2.on .sw::after{transform:translateX(11px)}
+mark.swap{background:var(--accent-soft);color:var(--accent);border-radius:5px;
+  padding:1px 5px;font-weight:600;box-decoration-break:clone}
+
+.clip{display:flex;gap:12px;width:100%;text-align:left;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:9px;
+  cursor:pointer;font:inherit;color:inherit;transition:border-color .15s,background .15s}
+.clip:hover{border-color:var(--accent);background:var(--accent-soft)}
+.clip.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.clip .t{font-family:var(--mono);font-size:12px;color:var(--accent);
+  font-weight:600;padding-top:2px;min-width:52px}
+.clip .n{font-weight:600;font-size:15px;letter-spacing:-.01em;display:block;margin-bottom:2px}
+.clip .w{font-size:13px;color:var(--muted);display:block}
+
+.point{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 20px;margin-bottom:12px}
+.point h3{margin:0 0 4px;font-size:17px;letter-spacing:-.02em;cursor:pointer;user-select:none}
+.point h3:hover{color:var(--accent)}
+.point.closed ul{display:none}
+.point.closed .range{margin-bottom:0}
+.point h3 .caret{font-size:11px;color:var(--muted);margin-right:7px}
+.point.closed h3 .caret{transform:rotate(180deg)}
+.point.closed .range::after{content:" · 눌러서 펼치기";opacity:.8}
+.point .range{font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:12px}
+.point ul{margin:0;padding:0;list-style:none}
+.point li{padding:8px 0;border-top:1px dashed var(--line)}
+.point li:first-child{border-top:0}
+.ev{background:none;border:0;padding:0;margin-left:6px;cursor:pointer;font:inherit;
+  font-family:var(--mono);font-size:11px;color:var(--accent);opacity:.75;
+  border-bottom:1px dotted currentColor}
+.ev:hover{opacity:1}
+.quote{display:none;margin:8px 0 2px;padding:9px 13px;border-left:3px solid var(--accent);
+  background:var(--accent-soft);border-radius:0 8px 8px 0;font-size:13.5px;color:var(--muted)}
+.quote.open{display:block}
+.quote b{color:var(--accent);font-family:var(--mono);font-size:11px;display:block;margin-bottom:3px}
+
+.gloss-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.gloss{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px;margin:0;cursor:pointer;transition:border-color .15s,background .15s}
+.gloss:hover{border-color:var(--accent);background:var(--accent-soft)}
+.gloss dt{font-weight:700;font-size:15px;margin-bottom:4px;display:flex;
+  align-items:baseline;gap:8px;letter-spacing:-.01em}
+.gloss dd{margin:0;font-size:14px;color:var(--muted);line-height:1.7}
+.gloss .at{font-family:var(--mono);font-size:11px;color:var(--accent);
+  background:none;border:0;padding:0;border-bottom:1px dotted currentColor;pointer-events:none}
+
+.act{display:flex;gap:11px;align-items:flex-start;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:9px}
+.act input{margin:5px 0 0;width:17px;height:17px;accent-color:var(--good);flex:none;cursor:pointer}
+.act label{cursor:pointer;font-size:15px;letter-spacing:-.01em}
+.act.done label{text-decoration:line-through;color:var(--muted)}
+
+.hard{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--warn);
+  border-radius:0 12px 12px 0;padding:13px 16px;margin-bottom:9px;
+  cursor:pointer;transition:border-color .15s,background .15s}
+.hard:hover{background:var(--accent-soft);border-left-color:var(--accent)}
+.hard .q{font-weight:600;font-size:14.5px;margin-bottom:5px}
+.hard .a{font-size:14px;color:var(--muted)}
+.hard .at{font-family:var(--mono);font-size:11px;color:var(--accent);
+  border-bottom:1px dotted currentColor}
+
+.verify{font-size:12px;color:var(--muted);border:1px dashed var(--line);
+  border-radius:10px;padding:11px 14px;margin-top:22px;line-height:1.65}
+.verify b{color:var(--ink)}
+footer{border-top:1px solid var(--line);padding:26px 0 60px;font-size:12.5px;color:var(--muted)}
+.empty{padding:70px 20px;text-align:center;color:var(--muted)}
+.draft{background:var(--warn);color:#fff;font-size:11px;padding:2px 8px;border-radius:99px}
+
+/* 개인 기능 공통 */
+.pbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+.pbtn{font:inherit;font-size:13px;cursor:pointer;background:var(--surface);
+  border:1px solid var(--line);color:var(--muted);border-radius:99px;
+  padding:6px 14px;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.pbtn:hover{border-color:var(--accent);color:var(--accent)}
+.pbtn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.pbtn.danger:hover{border-color:var(--warn);color:var(--warn)}
+
+.memo{margin:0 0 30px}
+.memo textarea{width:100%;min-height:96px;resize:vertical;font:inherit;font-size:14.5px;
+  line-height:1.7;color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;padding:13px 15px;outline:none}
+.memo textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.memo .st{font-size:12px;color:var(--muted);margin-top:6px;min-height:16px}
+
+.addact{display:flex;gap:8px;margin-top:9px}
+.addact input{flex:1;font:inherit;font-size:14px;border:1px solid var(--line);
+  background:var(--surface);border-radius:12px;padding:11px 14px;outline:none;color:var(--ink)}
+.addact input:focus{border-color:var(--accent)}
+.addact button{font:inherit;font-size:13.5px;cursor:pointer;background:var(--accent);
+  color:#fff;border:0;border-radius:12px;padding:0 18px;white-space:nowrap}
+.act .mine{font-size:10.5px;background:var(--good);color:#fff;border-radius:4px;
+  padding:1px 6px;margin-left:7px;vertical-align:2px}
+.act .del{margin-left:auto;background:none;border:0;color:var(--muted);cursor:pointer;
+  font-size:14px;padding:0 4px;align-self:flex-start}
+.act .del:hover{color:var(--warn)}
+
+/* 목표 막대 */
+.goal{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px;margin-bottom:10px}
+.goal .top{display:flex;align-items:center;gap:10px;font-size:14px;margin-bottom:9px}
+.goal .top b{font-size:17px;color:var(--accent)}
+.goal .top input{width:52px;font:inherit;font-size:14px;text-align:center;
+  border:1px solid var(--line);border-radius:8px;padding:3px 4px;background:var(--bg);color:var(--ink)}
+.bar{height:9px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--good);border-radius:99px;
+  transition:width .35s ease}
+.goal.done .bar i{background:var(--accent)}
+.goal .msg{font-size:12.5px;color:var(--muted);margin-top:7px}
+
+/* 카드 위 X 버튼 */
+.cardwrap{position:relative}
+.cardx{position:absolute;top:9px;right:9px;z-index:5;width:26px;height:26px;
+  border-radius:50%;border:0;cursor:pointer;background:rgba(0,0,0,.55);color:#fff;
+  font-size:13px;line-height:1;opacity:0;transition:opacity .15s}
+.cardwrap:hover .cardx{opacity:1}
+.cardx:hover{background:var(--warn)}
+
+/* 담기 팝업 */
+.pop{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;
+  align-items:center;justify-content:center;z-index:200;padding:20px}
+.pop.show{display:flex}
+.popbox{background:var(--surface);border-radius:var(--radius);padding:24px;
+  width:100%;max-width:400px;max-height:80vh;overflow:auto}
+.popbox h3{margin:0 0 4px;font-size:19px;letter-spacing:-.02em}
+.popbox p{margin:0 0 16px;font-size:13.5px;color:var(--muted)}
+.folder{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid var(--line);
+  border-radius:11px;margin-bottom:7px;cursor:pointer;font-size:14.5px}
+.folder:hover{border-color:var(--accent)}
+.folder.in{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.folder .n{margin-left:auto;font-size:12px;color:var(--muted)}
+.newf{display:flex;gap:8px;margin-top:12px}
+.newf input{flex:1;font:inherit;font-size:14px;border:1px solid var(--line);
+  border-radius:11px;padding:10px 13px;background:var(--bg);color:var(--ink);outline:none}
+.newf button{font:inherit;font-size:13.5px;cursor:pointer;background:var(--accent);
+  color:#fff;border:0;border-radius:11px;padding:0 16px}
+.popclose{margin-top:16px;width:100%;font:inherit;font-size:14px;cursor:pointer;
+  background:none;border:1px solid var(--line);color:var(--muted);border-radius:11px;padding:10px}
+
+/* 알림 */
+.toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:99px;
+  font-size:14px;opacity:0;pointer-events:none;transition:all .25s;z-index:300}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style></head><body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">말씀 한눈에<small>사랑의교회</small></a>
+  <nav class="nav">
+    <a href="sermons.html">말씀 검색</a>
+    <a href="map.html">인물 지도</a>
+    <a href="mylib.html">내 서재</a>
+    <span class="badge" title="메모·체크·저장은 보는 사람의 브라우저에만 남습니다">개인 기록은 기기에만 저장</span>
+  </nav>
+</div></header>
+<div class="wrap">
+  <div class="listhead">
+    <div class="lh-left">
+      <h1>주일 말씀을, 처음 듣는 사람도 알아듣게</h1>
+      <p>설교 6편 · 모든 요약에 원문 근거가 붙어 있습니다</p>
+    </div>
+    <div class="lh-right">
+      <div class="search">
+        <span class="mag">🔍</span>
+        <input id="q" type="search" placeholder="제목 · 본문 · 키워드로 찾기"
+               oninput="doSearch()" autocomplete="off">
+        <button class="clr" onclick="clearSearch()" title="지우기">✕</button>
+      </div>
+      <div class="hit" id="hit"></div>
+    </div>
+  </div>
+  <div class="filewarn" id="filewarn">
+<b>영상이 재생되지 않습니다.</b> 이 페이지를 파일로 직접 여셨기 때문입니다
+(유튜브가 <code>file://</code> 임베드를 막습니다 — 오류 153).
+터미널에서 <code>./보기.sh</code> 를 실행하신 뒤
+<code>http://localhost:8765</code> 로 여시면 정상 재생됩니다.
+</div>
+<script>if(location.protocol==='file:')document.getElementById('filewarn').style.display='block';</script>
+  <div class="filters"><button class="fchip on" data-cat="" onclick="filterCat(this)">전체<b>6</b></button><button class="fchip" data-cat="주일예배" onclick="filterCat(this)">주일예배<b>5</b></button><button class="fchip" data-cat="그 외 예배" onclick="filterCat(this)">그 외 예배<b>1</b></button></div>
+  <div class="cards" id="cards"><a class="card" href="s/T0_h88QEYm0.html" data-cat="그 외 예배" data-find="[사랑의교회] 무너진 성벽을 향한 기도의 부르심 - 서현명 목사 무너진 것을 보고 남 탓하는 대신 내 죄로 끌어안고 우는 한 사람에게서 하나님의 일이 시작됩니다. 그 외 예배 기도 하나님 느헤미야 자리 조국 성벽 애통 언약 회개 섭리 느헤미야 1:1-11 신명기 30:2-3 서현명 목사">
+  <img class="thumb" alt="" loading="lazy"
+       src="https://i.ytimg.com/vi/T0_h88QEYm0/hqdefault.jpg"
+       onerror="this.onerror=null;this.src='https://img.youtube.com/vi/T0_h88QEYm0/hqdefault.jpg'">
+  <div class="body">
+    <div class="date"><span class="draft">초안</span> <span class="cat">그 외 예배</span>2026. 08. 13 (목)</div>
+    <h3>[사랑의교회] 무너진 성벽을 향한 기도의 부르심 - 서현명 목사</h3>
+    <p class="one">무너진 것을 보고 남 탓하는 대신 내 죄로 끌어안고 우는 한 사람에게서 하나님의 일이 시작됩니다.</p>
+    <div class="chips"><span class="chip">기도<b>54</b></span><span class="chip">하나님<b>50</b></span><span class="chip">느헤미야<b>35</b></span></div>
+  </div></a><a class="card" href="s/9S3lRg-Rd_4.html" data-cat="주일예배" data-find="[사랑의교회] 광야에서의 승리 - 윤대혁 후임목사 광야가 끝나는 것이 승리가 아니라, 왜 광야에 있는지를 알고 순종하며 변화되는 것이 승리입니다. 주일예배 광야 하나님 순종 말씀 애굽 승리 은혜 출애굽기 16:2-4 신명기 8:2 마태복음 11:28-29 윤대혁 후임목사">
+  <img class="thumb" alt="" loading="lazy"
+       src="https://i.ytimg.com/vi/9S3lRg-Rd_4/hqdefault.jpg"
+       onerror="this.onerror=null;this.src='https://img.youtube.com/vi/9S3lRg-Rd_4/hqdefault.jpg'">
+  <div class="body">
+    <div class="date"><span class="draft">초안</span> <span class="cat">주일예배</span>2026. 08. 09 (일)</div>
+    <h3>[사랑의교회] 광야에서의 승리 - 윤대혁 후임목사</h3>
+    <p class="one">광야가 끝나는 것이 승리가 아니라, 왜 광야에 있는지를 알고 순종하며 변화되는 것이 승리입니다.</p>
+    <div class="chips"><span class="chip">광야<b>112</b></span><span class="chip">하나님<b>92</b></span><span class="chip">순종<b>41</b></span></div>
+  </div></a><a class="card" href="s/ZXbC5_PzAYg.html" data-cat="주일예배" data-find="[사랑의교회] 자는 자여 일어나라 - 윤대혁 후임목사 주님이 깨우려 하신 것은 내 환경이 아니라, 그 환경 앞에 주저앉은 내 믿음입니다. 주일예배 주님 하나님 깨어 신앙 환경 야이로 믿음 마가복음 5:21-43 누가복음 8:42 요한복음 11:40 전도서 3:11 윤대혁 후임목사">
+  <img class="thumb" alt="" loading="lazy"
+       src="https://i.ytimg.com/vi/ZXbC5_PzAYg/hqdefault.jpg"
+       onerror="this.onerror=null;this.src='https://img.youtube.com/vi/ZXbC5_PzAYg/hqdefault.jpg'">
+  <div class="body">
+    <div class="date"><span class="draft">초안</span> <span class="cat">주일예배</span>2026. 08. 02 (일)</div>
+    <h3>[사랑의교회] 자는 자여 일어나라 - 윤대혁 후임목사</h3>
+    <p class="one">주님이 깨우려 하신 것은 내 환경이 아니라, 그 환경 앞에 주저앉은 내 믿음입니다.</p>
+    <div class="chips"><span class="chip">주님<b>69</b></span><span class="chip">하나님<b>53</b></span><span class="chip">깨어<b>31</b></span></div>
+  </div></a><a class="card" href="s/gK9OJO1YgB0.html" data-cat="주일예배" data-find="[사랑의교회] 어둠 속의 도약 - 오정현 담임목사 현실의 어려움을 알고도 하나님의 약속을 믿는 것이 진짜 부활 신앙입니다 주일예배 믿음 알고도 약속 언약 상속자 전유물화 도약 로마서 4:11-24 오정현">
+  <img class="thumb" alt="" loading="lazy"
+       src="https://i.ytimg.com/vi/gK9OJO1YgB0/hqdefault.jpg"
+       onerror="this.onerror=null;this.src='https://img.youtube.com/vi/gK9OJO1YgB0/hqdefault.jpg'">
+  <div class="body">
+    <div class="date"><span class="draft">초안</span> <span class="cat">주일예배</span>2026. 04. 05 (일)</div>
+    <h3>[사랑의교회] 어둠 속의 도약 - 오정현 담임목사</h3>
+    <p class="one">현실의 어려움을 알고도 하나님의 약속을 믿는 것이 진짜 부활 신앙입니다</p>
+    <div class="chips"><span class="chip">믿음<b>40</b></span><span class="chip">알고도<b>16</b></span><span class="chip">약속<b>20</b></span></div>
+  </div></a><a class="card" href="s/X89gz_NrY3Q.html" data-cat="주일예배" data-find="[사랑의교회] 상대주의와 형식주의를 타파하는 능력 - 오정현 담임목사 상대주의와 형식주의를 이기는 길은 마음의 할례, 곧 진짜 회개에 있다는 말씀 주일예배 상대주의 절대 진리 율법 할례 은혜 회개 형식주의 양심 로마서 2:12-29 ">
+  <img class="thumb" alt="" loading="lazy"
+       src="https://i.ytimg.com/vi/X89gz_NrY3Q/hqdefault.jpg"
+       onerror="this.onerror=null;this.src='https://img.youtube.com/vi/X89gz_NrY3Q/hqdefault.jpg'">
+  <div class="body">
+    <div class="date"><span class="draft">초안</span> <span class="cat">주일예배</span>2026. 03. 01 (일)</div>
+    <h3>[사랑의교회] 상대주의와 형식주의를 타파하는 능력 - 오정현 담임목사</h3>
+    <p class="one">상대주의와 형식주의를 이기는 길은 마음의 할례, 곧 진짜 회개에 있다는 말씀</p>
+    <div class="chips"><span class="chip">상대주의<b>25</b></span><span class="chip">절대 진리<b>20</b></span><span class="chip">율법<b>20</b></span></div>
+  </div></a><a class="card" href="s/3mKeH0tm5FI.html" data-cat="주일예배" data-find="[사랑의교회] 내로남불 인생을 향한 복음 - 오정현 담임목사 내가 하면 괜찮고 남이 하면 안 된다는 내로남불에서 벗어나 회개로 돌아오라는 말씀 주일예배 내로남불 심판 회개 진노 죄 프랑스 혁명 대각성 로마서 2:1-11 오정현">
+  <img class="thumb" alt="" loading="lazy"
+       src="https://i.ytimg.com/vi/3mKeH0tm5FI/hqdefault.jpg"
+       onerror="this.onerror=null;this.src='https://img.youtube.com/vi/3mKeH0tm5FI/hqdefault.jpg'">
+  <div class="body">
+    <div class="date"><span class="draft">초안</span> <span class="cat">주일예배</span>2026. 02. 22 (일)</div>
+    <h3>[사랑의교회] 내로남불 인생을 향한 복음 - 오정현 담임목사</h3>
+    <p class="one">내가 하면 괜찮고 남이 하면 안 된다는 내로남불에서 벗어나 회개로 돌아오라는 말씀</p>
+    <div class="chips"><span class="chip">내로남불<b>20</b></span><span class="chip">심판<b>15</b></span><span class="chip">회개<b>14</b></span></div>
+  </div></a></div>
+  <div class="empty" id="none" style="display:none">찾으시는 말씀이 없습니다.</div>
+  
+</div><script>
+let CAT="";
+function norm(s){return (s||"").toLowerCase().replace(/\s+/g,"");}
+function doSearch(){
+  const q=norm(document.getElementById("q").value);
+  let n=0;
+  document.querySelectorAll("#cards .card").forEach(el=>{
+    const okCat = !CAT || el.dataset.cat===CAT;
+    const okQ = !q || norm(el.dataset.find).includes(q);
+    const show = okCat && okQ;
+    el.style.display = show ? "" : "none";
+    if(show) n++;
+  });
+  const hit=document.getElementById("hit");
+  hit.textContent = (q||CAT) ? n+"편 찾음" : "";
+  document.getElementById("none").style.display = n ? "none" : "block";
+}
+function filterCat(btn){
+  CAT = btn.dataset.cat;
+  document.querySelectorAll(".fchip").forEach(b=>b.classList.toggle("on", b===btn));
+  doSearch();
+}
+function clearSearch(){document.getElementById("q").value="";doSearch();}
+document.addEventListener("keydown",ev=>{
+  if(ev.key==="/" && document.activeElement.id!=="q"){ev.preventDefault();document.getElementById("q").focus();}
+});
+</script>
+<div class="pop" id="savepop" onclick="if(event.target===this)closeSave()">
+  <div class="popbox">
+    <h3>어디에 담을까요</h3>
+    <p>유튜브 재생목록처럼, 원하는 폴더에 넣어 두실 수 있습니다.</p>
+    <div id="folderlist"></div>
+    <div class="newf">
+      <input id="newfname" placeholder="새 폴더 이름"
+             onkeydown="if(event.key==='Enter')newFolder()">
+      <button onclick="newFolder()">만들기</button>
+    </div>
+    <button class="popclose" onclick="closeSave()">닫기</button>
+  </div>
+</div>
+<script>const RP = "";</script>
+<script>
+/* ── 저장소 (이 브라우저에만 남습니다) ───────────────────────── */
+const DB = {
+  get(k, d){ try{ return JSON.parse(localStorage.getItem('malssm:'+k)) ?? d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('malssm:'+k, JSON.stringify(v)); }catch(e){} },
+};
+function toast(msg){
+  let t = document.querySelector('.toast');
+  if(!t){ t = document.createElement('div'); t.className='toast'; document.body.appendChild(t); }
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 1900);
+}
+
+/* ── 최근 본 설교 ────────────────────────────────────────────── */
+function noteVisit(vid, title, date, cat){
+  const r = DB.get('recent', []).filter(x=>x.id!==vid);
+  r.unshift({id:vid, title, date, cat, at:Date.now()});
+  DB.set('recent', r.slice(0, 24));
+}
+function dropRecent(vid){
+  DB.set('recent', DB.get('recent', []).filter(x=>x.id!==vid));
+  renderRecent();
+  toast('최근 본 목록에서 지웠습니다');
+}
+function clearRecent(){
+  if(!confirm('최근 본 설교를 모두 지울까요? 저장한 폴더와 메모는 그대로 남습니다.')) return;
+  DB.set('recent', []); renderRecent(); toast('모두 지웠습니다');
+}
+function renderRecent(){
+  const box = document.getElementById('recentbox');
+  if(!box) return;
+  const r = DB.get('recent', []);
+  if(!r.length){ box.innerHTML =
+    '<div class="empty" style="padding:34px 0">아직 본 설교가 없습니다.</div>'; return; }
+  box.innerHTML = '<div class="cards">' + r.map(x=>`
+    <div class="cardwrap">
+      <button class="cardx" title="목록에서 지우기"
+        onclick="event.preventDefault();dropRecent('${x.id}')">✕</button>
+      <a class="card" href="${RP}s/${x.id}.html">
+        <img class="thumb" alt="" loading="lazy"
+             src="https://i.ytimg.com/vi/${x.id}/hqdefault.jpg">
+        <div class="body">
+          <div class="date"><span class="cat">${esc2(x.cat||'')}</span>${esc2(x.date||'')}</div>
+          <h3>${esc2(x.title||'')}</h3>
+        </div></a>
+    </div>`).join('') + '</div>';
+}
+function esc2(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ── 저장 폴더 (유튜브 재생목록처럼) ─────────────────────────── */
+function folders(){ return DB.get('folders', {'나중에 다시 볼 말씀': []}); }
+function savedIn(vid){ const f=folders(); return Object.keys(f).filter(k=>f[k].includes(vid)); }
+function openSave(vid, title){
+  const pop = document.getElementById('savepop');
+  pop.dataset.vid = vid; pop.dataset.title = title || '';
+  drawFolders(); pop.classList.add('show');
+}
+function closeSave(){ document.getElementById('savepop').classList.remove('show'); }
+function drawFolders(){
+  const pop = document.getElementById('savepop'), vid = pop.dataset.vid;
+  const f = folders();
+  document.getElementById('folderlist').innerHTML = Object.keys(f).map(k=>`
+    <div class="folder ${f[k].includes(vid)?'in':''}" onclick="toggleFolder('${encodeURIComponent(k)}')">
+      <span>${f[k].includes(vid)?'✓':'＋'}</span><span>${esc2(k)}</span>
+      <span class="n">${f[k].length}편</span>
+    </div>`).join('') || '<p>폴더가 없습니다. 아래에서 만들어 주십시오.</p>';
+}
+function toggleFolder(enc){
+  const name = decodeURIComponent(enc);
+  const pop = document.getElementById('savepop'), vid = pop.dataset.vid;
+  const f = folders();
+  f[name] = f[name].includes(vid) ? f[name].filter(x=>x!==vid) : [...f[name], vid];
+  DB.set('folders', f); drawFolders(); refreshSaveBtn();
+  toast(f[name].includes(vid) ? `'${name}'에 담았습니다` : `'${name}'에서 뺐습니다`);
+}
+function newFolder(){
+  const el = document.getElementById('newfname');
+  const name = el.value.trim();
+  if(!name) return;
+  const f = folders();
+  if(f[name]){ toast('같은 이름의 폴더가 있습니다'); return; }
+  f[name] = []; DB.set('folders', f); el.value=''; drawFolders();
+}
+function refreshSaveBtn(){
+  const b = document.getElementById('savebtn');
+  if(!b) return;
+  const n = savedIn(b.dataset.vid).length;
+  b.classList.toggle('on', n>0);
+  b.innerHTML = n ? `★ 담김 (${n})` : '☆ 담기';
+}
+
+/* ── 메모 (나만 봅니다) ──────────────────────────────────────── */
+function initMemo(vid){
+  const t = document.getElementById('memo');
+  if(!t) return;
+  const notes = DB.get('notes', {});
+  t.value = notes[vid] || '';
+  const st = document.getElementById('memost');
+  let h;
+  t.addEventListener('input', ()=>{
+    st.textContent = '입력 중…';
+    clearTimeout(h);
+    h = setTimeout(()=>{
+      const n = DB.get('notes', {});
+      if(t.value.trim()) n[vid] = t.value; else delete n[vid];
+      DB.set('notes', n);
+      st.textContent = '저장됨 · ' + new Date().toLocaleTimeString('ko-KR');
+    }, 600);
+  });
+}
+
+/* ── 실천 체크 + 내가 추가한 항목 + 주간 목표 ────────────────── */
+function checks(){ return DB.get('checks', {}); }
+function setCheck(vid, key, on){
+  const c = checks(); c[vid] = c[vid] || {};
+  if(on) c[vid][key] = Date.now(); else delete c[vid][key];
+  DB.set('checks', c); drawGoal();
+}
+function myActs(vid){ return (DB.get('myacts', {})[vid]) || []; }
+function addAct(vid){
+  const el = document.getElementById('newact');
+  const text = el.value.trim();
+  if(!text) return;
+  const m = DB.get('myacts', {});
+  m[vid] = [...(m[vid]||[]), {id:'m'+Date.now(), text}];
+  DB.set('myacts', m); el.value=''; drawMyActs(vid); toast('실천을 추가했습니다');
+}
+function delAct(vid, id){
+  const m = DB.get('myacts', {});
+  m[vid] = (m[vid]||[]).filter(x=>x.id!==id);
+  DB.set('myacts', m);
+  setCheck(vid, id, false);
+  drawMyActs(vid);
+}
+function drawMyActs(vid){
+  const box = document.getElementById('myacts');
+  if(!box) return;
+  const c = (checks()[vid]) || {};
+  box.innerHTML = myActs(vid).map(a=>`
+    <div class="act ${c[a.id]?'done':''}">
+      <input type="checkbox" id="${a.id}" ${c[a.id]?'checked':''}
+        onchange="setCheck('${vid}','${a.id}',this.checked);this.closest('.act').classList.toggle('done',this.checked)">
+      <div style="flex:1"><label for="${a.id}">${esc2(a.text)}</label>
+        <span class="mine">내가 추가</span></div>
+      <button class="del" title="지우기" onclick="delAct('${vid}','${a.id}')">✕</button>
+    </div>`).join('');
+}
+function weekStart(){
+  const d = new Date(); d.setHours(0,0,0,0);
+  d.setDate(d.getDate() - ((d.getDay()+6)%7));   // 월요일 기준
+  return d.getTime();
+}
+function weekDone(){
+  const c = checks(), from = weekStart();
+  let n = 0;
+  for(const v in c) for(const k in c[v]) if(c[v][k] >= from) n++;
+  return n;
+}
+function setGoal(v){ DB.set('goal', Math.max(1, Math.min(99, parseInt(v)||1))); drawGoal(); }
+function drawGoal(){
+  const box = document.getElementById('goalbox');
+  if(!box) return;
+  const goal = DB.get('goal', 3), done = weekDone();
+  const pct = Math.min(100, Math.round(done/goal*100));
+  box.className = 'goal' + (done>=goal ? ' done' : '');
+  box.innerHTML = `
+    <div class="top">
+      <span>이번 주</span><b>${done}</b><span>/</span>
+      <input type="number" min="1" max="99" value="${goal}"
+             onchange="setGoal(this.value)" title="목표 개수를 정하십시오">
+      <span>개 실천</span>
+    </div>
+    <div class="bar"><i style="width:${pct}%"></i></div>
+    <div class="msg">${done>=goal ? '이번 주 목표를 채우셨습니다.'
+      : `${goal-done}개 남았습니다. 월요일에 다시 시작됩니다.`}</div>`;
+}
+
+/* ── 오류 리포트 ─────────────────────────────────────────────── */
+function report(kind, ref){
+  const what = prompt(
+    kind==='fact' ? '어느 부분이 사실과 다른가요? (성경 고증·인물 정보 등)'
+                  : '무엇이 잘못 동작하나요?');
+  if(!what || !what.trim()) return;
+  const list = DB.get('reports', []);
+  list.unshift({kind, ref, what:what.trim(), page:location.pathname.split('/').pop(),
+                at:new Date().toISOString()});
+  DB.set('reports', list.slice(0,200));
+  toast('기록했습니다. 내 서재에서 모아 보실 수 있습니다');
+}
+</script>
+<footer><div class="wrap">설교 저작권은 사랑의교회에 있습니다.
+영상은 유튜브 임베드로만 재생되며 이 사이트는 영상을 복제하지 않습니다.</div></footer>
+</body></html>
